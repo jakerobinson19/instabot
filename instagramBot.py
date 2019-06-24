@@ -5,7 +5,7 @@ import time
 class instagramBot():
   
   def __init__(self, email, password):
-    self.browser = webdriver.Chrome()
+    self.browser = webdriver.Firefox()
     self.email = email
     self.password = password
     
