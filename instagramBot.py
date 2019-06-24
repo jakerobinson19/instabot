@@ -1,4 +1,6 @@
-rom selenium import webdriver
+from selenium import webdriver
+import random
+import time
 
 class instagramBot():
   
