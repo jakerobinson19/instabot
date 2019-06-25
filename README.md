@@ -10,15 +10,15 @@ This bot is written in python and requires the use of the web browser automation
 
 To install Selenium, enter the commands below (based on your operation system):
 
-###Windows:
+### Windows:
 pip install selenium
 
-###MacOs:
+### MacOs:
 sudo easy_install selenium
 
-Install Chromdriver:
+### Install Chromedriver:
 
-Go to https://sites.google.com/a/chromium.org/chromedriver/ and download the driver for you OS and version of Chrome (if you don't know your version, go to Settings>About Chrome in the browser)
+Selenium requires a web driver for the browser Go to https://sites.google.com/a/chromium.org/chromedriver/ and download the driver for you OS and version of Chrome (if you don't know your version, go to Settings>About Chrome in the browser)
 
 Once downloaded, add the driver to your PATH by putting it in your /usr/local/bin or /usr/bin directories (depending on where Python is installed)
 
