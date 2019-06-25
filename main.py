@@ -1,4 +1,5 @@
 from time import sleep
+from random import randint
 from igBot import instabot
 
 uname = input("Please enter username: ")
@@ -6,6 +7,6 @@ pword = input("Please enter password: ")
 
 bot = instabot(Chrome,uname,pword)
 
-instabot.signIn()
+bot.signIn()
 
-time.sleep(3)
+sleep(randInt(3,6))
