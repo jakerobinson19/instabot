@@ -1,4 +1,11 @@
 from time import sleep
-from selenium import webdriver
+from igBot import instabot
 
-browser = webdriver.Chrome()
+uname = input("Please enter username: ")
+pword = input("Please enter password: ")
+
+bot = instabot(Chrome,uname,pword)
+
+instabot.signIn()
+
+time.sleep(3)
