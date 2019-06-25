@@ -16,3 +16,11 @@ pip install selenium
 ###MacOs:
 sudo easy_install selenium
 
+Install Chromdriver:
+
+Go to https://sites.google.com/a/chromium.org/chromedriver/ and download the driver for you OS and version of Chrome (if you don't know your version, go to Settings>About Chrome in the browser)
+
+Once downloaded, add the driver to your PATH by putting it in your /usr/local/bin or /usr/bin directories (depending on where Python is installed)
+
+
+
