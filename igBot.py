@@ -21,6 +21,7 @@ class instagramBot():
     
     #press Enter
     self.passwordInput.send_keys(Keys.Enter)
+    time.sleep(3)
     
     #click the not now option for the notifications pop-up that appears immediately after logging in
     self.notnow = self.browser.find_element_by_css_selector('body > div:nth-child(13) > div > div > div > div.mt3GC > button.aOOlW.HoLwm')
