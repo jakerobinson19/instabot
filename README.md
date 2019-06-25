@@ -21,7 +21,7 @@ sudo easy_install selenium
 
 ### Install drivers:
 
-Selenium requires a web driver to access the latest and greatest features. For the bot to work, you should download the webdriver for the browser that you plan to use and, once downloaded, add the driver to your $PATH by putting it in your /usr/local/bin or /usr/bin directories (depending on where Python is installed). 
+Selenium requires a web driver to access the latest and greatest features. For the bot to work, you should download the webdriver for the browser that you plan to use and, once downloaded, add the driver to your $PATH by putting it in your */usr/local/bin* or */usr/bin* directories (depending on where Python is installed). 
 
 For a full list of drivers to download for Selenium, go to: https://www.seleniumhq.org/download/
 
