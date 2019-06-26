@@ -46,5 +46,13 @@ class instagramBot():
     #'Post comment' - postComment = browser.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/article/div[2]/section[3]/div[1]/form/button')
     # postComment.click()
     
+  def goToProfile(self):
+    self.profile = browser.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[3]/div/div[3]/a')
+    self.profile.click()
     
+  def selectImage(self, picType):
+    if self.picType == 'Latest'
+    elif self.picType == 'Second'
+    elif self.picType == 'Random'
+      #set element, select picture
     
