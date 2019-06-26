@@ -27,7 +27,14 @@ class instagramBot():
     self.notnow = browser.find_element_by_xpath('//button[text()="Not Now"]')
     self.notnow.click()
     
-    
-  def likePic():
-  def commentOnPic():
-  def 
+    #pic1: //*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[1]/div[2]/section[1]/span[1]/button/span
+    #pic2: //*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[2]/div[2]/section[1]/span[1]/button/span
+    #pic3: //*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[3]/div[2]/section[1]/span[1]/button/span
+  
+  
+  def likePic(self, limit):
+    for i in range(limit):
+      self.likeButton = self.browser.find_element_by_xpath('//*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[' + i ']/div[2]/section[1]/span[1]/button/span')
+      self.likeButton.click()
+  
+  def commentOnPic(self):
