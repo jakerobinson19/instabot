@@ -34,7 +34,7 @@ class instagramBot():
   
   def likePic(self, limit):
     for i in range(limit):
-      self.likeButton = self.browser.find_element_by_xpath('//*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[' + i ']/div[2]/section[1]/span[1]/button/span')
+      self.likeButton = self.browser.find_element_by_xpath('//*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[' + i + ']/div[2]/section[1]/span[1]/button/span')
       self.likeButton.click()
   
   def commentOnPic(self):
