@@ -10,7 +10,7 @@ class instagramBot():
     self.email = email
     self.password = password
     
-  def signIn():
+  def signIn(self):
     self.browser.get('https://www.instagram.com/accounts/login/')
     self.emailInput = self.browser.find_elements_by_css_selector('form input')[0]
     self.passwordInput = self.browser.find_element_by_css_selector('form input')[1]
@@ -32,8 +32,10 @@ class instagramBot():
     #pic3: //*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[3]/div[2]/section[1]/span[1]/button/span
   
   
-  def likePic(self, limit):
-    for i in range(limit):
+  def getXpathForHeart(self, number):
+      return('//*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[{}]/div[2]/section[1]/span[1]/button/span'.format(number))
+      
+  def likePic(self):    
       self.likeButton = self.browser.find_element_by_xpath('//*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[' + i + ']/div[2]/section[1]/span[1]/button/span')
       self.likeButton.click()
   
