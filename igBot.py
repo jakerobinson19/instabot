@@ -38,3 +38,13 @@ class instagramBot():
       self.likeButton.click()
   
   def commentOnPic(self):
+    #commentbutton2: 
+    #commentbutton3: //*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[3]/div[2]/section[1]/span[2]/button/span
+    
+    #'Add a comment' - prompt = browser.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/article/div[2]/section[3]/div/form/textarea')
+    
+    #'Post comment' - postComment = browser.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div/article/div[2]/section[3]/div[1]/form/button')
+    # postComment.click()
+    
+    
+    
