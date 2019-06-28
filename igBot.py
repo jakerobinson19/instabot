@@ -13,7 +13,7 @@ class instagramBot():
   def signIn(self):
     self.browser.get('https://www.instagram.com/accounts/login/')
     self.emailInput = self.browser.find_elements_by_css_selector('form input')[0]
-    self.passwordInput = self.browser.find_element_by_css_selector('form input')[1]
+    self.passwordInput = self.browser.find_elements_by_css_selector('form input')[1]
     
     #send email and password to fill input sections
     self.emailInput.send_keys(self.email)
