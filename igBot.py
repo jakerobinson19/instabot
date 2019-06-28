@@ -24,7 +24,7 @@ class instagramBot():
     time.sleep(3)
     
     #click the not now option for the notifications pop-up that appears immediately after logging in
-    self.notnow = browser.find_element_by_xpath('//button[text()="Not Now"]')
+    self.notnow = self.browser.find_element_by_xpath('//button[text()="Not Now"]')
     self.notnow.click()
     
     #pic1: //*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[1]/div[2]/section[1]/span[1]/button/span
