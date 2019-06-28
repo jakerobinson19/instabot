@@ -35,9 +35,11 @@ class instagramBot():
   def getXpathForHeart(self, number):
       return('//*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[{}]/div[2]/section[1]/span[1]/button/span'.format(number))
       
-  def likePic(self):    
-      self.likeButton = self.browser.find_element_by_xpath('//*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[' + i + ']/div[2]/section[1]/span[1]/button/span')
+  def likePic(self, xpath):
+      self.likeButton = self.browser.find_element_by_xpath(xpath)
       self.likeButton.click()
+      time.sleep(random.randint(2,5)
+  
   
   def commentOnPic(self):
     #commentbutton2: 
