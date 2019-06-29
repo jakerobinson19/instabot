@@ -45,12 +45,19 @@ class instagramBot():
       for h in range(len(self.hearts)):
         print('liking the pic {}'.format(str(self.loop + 1)))
         self.delay()
-        ActionChains(self.browser).move_to_element(self.hearts[h]).click(self.hearts[h]).perform()
+        
+        self.actions = ActionChains(self.browser)
+        self.actions.move_to_element(self.hearts[h])
+        self.actions.click(self.hearts[h])
+        self.actions.perform()
+        
         self.loop = self.loop + 1
         if self.loop > number:
           break
   
+  #function that delays for random number of seconds and prints how long program is pausing
   def delay(self):
+    #get random float between 2 and 5 (rounded to the 3rd decimal)
     sec = round(random.uniform(2,5), 3)
     print("Pausing for {} seconds".format(sec))
     time.sleep(sec)
