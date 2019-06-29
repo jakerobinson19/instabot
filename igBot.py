@@ -55,6 +55,15 @@ class instagramBot():
         if self.loop > number:
           break
   
+  def goToProfile(self, uname = self.email):
+    self.browser.get('https://www.instagram.com/{}'.format(uname))
+  
+  def getUsername(self):
+    uname = self.browser.find_element_by_xpath
+    
+  def goToHashtag(self, hashtag):
+    self.browser.get('https://www.instagram.com/explore/tags/{}/'.format(hashtag))
+    
   #function that delays for random number of seconds and prints how long program is pausing
   def delay(self):
     #get random float between 2 and 5 (rounded to the 3rd decimal)
