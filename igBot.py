@@ -78,10 +78,15 @@ class instagramBot():
     
   #function that delays for random number of seconds and prints how long program is pausing
   def delay(self):
-    #get random float between 2 and 5 (rounded to the 3rd decimal)
     sec = round(random.uniform(2,5), 3)
-    print("Pausing for {} seconds".format(sec))
-    time.sleep(sec)
+    sys.stdout.write("Pausing for " + str(sec) + " seconds")
+    self.t = 0
+    while self.t < sec:
+      sys.stdout.write('.')
+      sys.stdout.flush()
+      time.sleep(sec/3)
+      self.t = self.t + sec/3
+    sys.stdout.write('\n')
     
   
   def commentOnPic(self):
