@@ -30,11 +30,6 @@ class instagramBot():
     #click the not now option for the notifications pop-up that appears immediately after logging in
     self.notnow = self.browser.find_element_by_xpath('//button[text()="Not Now"]')
     self.notnow.click()
-    
-    #pic1: //*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[1]/div[2]/section[1]/span[1]/button/span
-    #pic2: //*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[2]/div[2]/section[1]/span[1]/button/span
-    #pic3: //*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[3]/div[2]/section[1]/span[1]/button/span
-  
   
   def getXpathForHeart(self, number):
       return('//*[@id="react-root"]/section/main/section/div[2]/div[1]/div/article[{}]/div[2]/section[1]/span[1]/button/span'.format(number))
