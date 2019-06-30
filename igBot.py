@@ -56,6 +56,8 @@ class instagramBot():
           break
   
   def goToProfile(self, uname = self.email):
+    if uname == None:
+      uname = self.email
     self.browser.get('https://www.instagram.com/{}'.format(uname))
   
   def getUsername(self):
@@ -64,8 +66,13 @@ class instagramBot():
   def goToHashtag(self, hashtag):
     self.browser.get('https://www.instagram.com/explore/tags/{}/'.format(hashtag))
   
-  def goToNextPic(self):
-    self.nextButton = self.browser.find_elements_by_xpath("//*[contains(text(), 'Next')]")
+  def goToNextPic(self, iter):
+    time.sleep(randint(1,3))
+    if iter == 0:
+      self.nextButton = self.browser.find_element_by_xpath('/html/body/div[3]/div[1]/div/div/a')
+    else:
+      self.nextButton = self.browser.find_element_by_xpath('/html/body/div[3]/div[1]/div/div/a[2]')
+    #self.browser.find_elements_by_xpath("//*[contains(text(), 'Next')]")
     self.nextButton.click()
     
   #function that delays for random number of seconds and prints how long program is pausing
