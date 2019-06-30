@@ -62,12 +62,13 @@ class instagramBot():
   
   def getUsername(self):
     uname = self.browser.find_elements_by_xpath("//a[@class='FPmhX notranslate nJAzx']")
-    
+    return(uname)
+  
   def goToHashtag(self, hashtag):
     self.browser.get('https://www.instagram.com/explore/tags/{}/'.format(hashtag))
   
   def goToNextPic(self, iter):
-    time.sleep(randint(1,3))
+    time.sleep(random.randint(1,3))
     if iter == 0:
       self.nextButton = self.browser.find_element_by_xpath('/html/body/div[3]/div[1]/div/div/a')
     else:
