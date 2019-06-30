@@ -10,6 +10,9 @@ class instagramBot():
     self.browser = webdriver.Chrome()
     self.email = email
     self.password = password
+    self.likes = 0
+    self.comments = 0
+    self.profilesEngaged = []
     
   def signIn(self):
     self.browser.get('https://www.instagram.com/accounts/login/')
