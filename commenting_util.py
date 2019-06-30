@@ -2,7 +2,7 @@ from selenium import webdriver
 import random
 import emoji
 
-wordOptions = [['Omg','So,'Absolutely','You are',],['cute','adorable','lovely','so sweet']]
+wordOptions = [['Omg','So','Absolutely','You are',],['the cutest','adorable','lovely','so sweet']]
 emojiOptions = [':heart:',':heartpulse:',':two_hearts:',':kissing_heart:',':heart_eyes:','
 
 def createComment():
