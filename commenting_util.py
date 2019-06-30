@@ -12,7 +12,7 @@ def createComment():
   secondWord = wordOptions[1][random.randint(0,len(wordOptions[1])-1)]
   emoji = emojiOptions[random.randint(0,len(emojiOptions)-1)]
   
-  comment = firstWord + secondWord + emoji
+  comment = firstWord + ' ' + secondWord + ' ' + emoji
   return(comment)
 
 def getNumberOfComments():
