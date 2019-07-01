@@ -13,6 +13,11 @@ class instagramBot():
     self.likes = 0
     self.comments = 0
     self.profilesEngaged = []
+    self.hashtagList = ['dachshund', 'dachshunds', 'dachshundsonly', 'dachshund_love',
+                        'doxiesofig', 'doxiefever', 'dachshundgram', 'dachshundlife',
+                        'dachshund_feature','dachshundnation','doxieofig','sausagedoges',
+                        'cute', 'dachshundsarethebest','dachshundobsessed','doxies',
+                        'dachshundoftheday','dachshundmoments','fluffy','dogs']
     
   def signIn(self):
     self.browser.get('https://www.instagram.com/accounts/login/')
