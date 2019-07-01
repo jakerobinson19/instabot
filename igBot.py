@@ -62,7 +62,7 @@ class instagramBot():
         if self.loop > number:
           break
   
-  def goToProfile(self, uname = self.email):
+  def goToProfile(self, uname = None):
     if uname == None:
       uname = self.email
     self.browser.get('https://www.instagram.com/{}'.format(uname))
@@ -95,7 +95,7 @@ class instagramBot():
       self.t = self.t + sec/3
     sys.stdout.write('\n')
     
-  def goToProfile(self):
+  def clickUsername(self):
     self.profile = browser.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[3]/div/div[3]/a')
     self.profile.click()
     
