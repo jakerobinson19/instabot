@@ -17,9 +17,12 @@ def createComment():
 
 def getNumberOfComments():
 
-
-
 def getComments():
 
-
+def sendComment(self, comm):
+    self.commentInput = self.browser.find_element_by_class_name('Ypffh')
+    self.commentInput.send_keys(comm)
+    delay()
+    #self.commentInputNew = self.browser.find_element_by_xpath("//div[@class='Mfkwx wUsz1']")
+    self.commentInput.send_keys(Keys.ENTER)
 
