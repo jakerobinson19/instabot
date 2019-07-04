@@ -82,7 +82,15 @@ class instagramBot():
       self.nextButton = self.browser.find_element_by_xpath('/html/body/div[3]/div[1]/div/div/a[2]')
     #self.browser.find_elements_by_xpath("//*[contains(text(), 'Next')]")
     self.nextButton.click()
-    
+  
+  def selectTopPicOnExplore(self):
+    self.pic = self.browser.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[1]/div/div/div[1]/div[1]/a')
+    self.pic.click()
+  
+  def selectRecentPicOnExplore(self):
+    self.pic = self.browser.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[2]/div/div[1]/div[1]/a')
+    self.pic.click()
+  
   #function that delays for random number of seconds and prints how long program is pausing
   def delay(self):
     sec = round(random.uniform(2,5), 3)
