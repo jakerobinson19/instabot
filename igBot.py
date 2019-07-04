@@ -99,9 +99,3 @@ class instagramBot():
     self.profile = browser.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[3]/div/div[3]/a')
     self.profile.click()
     
-  def selectImage(self, picType):
-    if self.picType == 'Latest'
-    elif self.picType == 'Second'
-    elif self.picType == 'Random'
-      #set element, select picture
-    
