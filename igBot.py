@@ -44,7 +44,7 @@ class instagramBot():
     return(self.hearts)
   
   def likePic(self, number = 1):
-    self.loop = 0
+    self.loop = 1
 
     while self.loop <= number:
       self.hearts = self.getLikeButtons()
