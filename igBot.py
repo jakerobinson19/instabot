@@ -68,7 +68,7 @@ class instagramBot():
     self.browser.get('https://www.instagram.com/{}'.format(uname))
   
   def getUsername(self):
-    uname = self.browser.find_elements_by_xpath("//a[@class='FPmhX notranslate nJAzx']")
+    uname = self.browser.find_element_by_class_name('BrX75').text
     return(uname)
   
   def goToHashtag(self, hashtag):
