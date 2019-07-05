@@ -62,6 +62,14 @@ class instagramBot():
         if self.loop > number:
           break
   
+  def rightArrow(self):
+    self.body = self.browser.find_element_by_tag_name('body')
+    self.body.send_keys(Keys.ARROW_RIGHT)
+  
+  def leftArrow(self):
+    self.body = self.browser.find_element_by_tag_name('body')
+    self.body.send_keys(Keys.ARROW_LEFT)
+
   def goToProfile(self, uname = None):
     if uname == None:
       uname = self.email
@@ -89,6 +97,10 @@ class instagramBot():
   
   def selectRecentPicOnExplore(self):
     self.pic = self.browser.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[2]/div/div[1]/div[1]/a')
+    self.pic.click()
+  
+  def selectPic(self, number = 1, type = 'Recent'):
+    self.pic = self.browser.find_element_by_xpath('//*[@id="react-root"]/section/main/div/div[3]/article/div[1]/div/div[1]/div[1]/a')
     self.pic.click()
   
   #function that delays for random number of seconds and prints how long program is pausing
