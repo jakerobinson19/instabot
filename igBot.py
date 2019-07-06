@@ -85,7 +85,8 @@ class instagramBot():
     self.browser.get('https://www.instagram.com/{}'.format(uname))
   
   def getUsername(self):
-    uname = self.browser.find_element_by_class_name('BrX75').text
+    wait = WebDriverWait(self.browser, 10)
+    uname = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'h2.BrX75')))
     return(uname)
   
   def goToHashtag(self, hashtag):
