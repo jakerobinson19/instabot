@@ -128,3 +128,13 @@ class instagramBot():
     self.profile = browser.find_element_by_xpath('//*[@id="react-root"]/section/nav/div[2]/div/div/div[3]/div/div[3]/a')
     self.profile.click()
     
+  def alreadyLiked(self,element):
+    self.liked = False
+    if element.text == 'Unlike':
+      print('Picture already liked, moving on...')
+      self.liked = True
+
+    return(liked)
+
+  def close(self):
+    self.browser.close()
