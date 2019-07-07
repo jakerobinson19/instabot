@@ -77,13 +77,16 @@ class instagramBot():
         if self.loop > number:
           break
   
-  def rightArrow(self):
-    self.body = self.browser.find_element_by_tag_name('body')
-    self.body.send_keys(Keys.ARROW_RIGHT)
-  
-  def leftArrow(self):
-    self.body = self.browser.find_element_by_tag_name('body')
-    self.body.send_keys(Keys.ARROW_LEFT)
+  def notAlreadyLiked(self,element):
+    self.not_liked = True
+    #wait = WebDriverWait(self.browser, 10)
+    try:
+      heart_button = element.find_element_by_xpath("//button/span[@class='glyphsSpriteHeart__outline__24__grey_9 u-__7']")
+    except NoSuchElementException:
+      print('Picture already liked, moving on...')
+      self.not_liked = False
+
+    return(self.not_liked)
 
   def goToProfile(self, uname = None):
     if uname == None:
