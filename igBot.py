@@ -55,13 +55,6 @@ class instagramBot():
   def getLikeButtons(self):
     self.hearts = self.browser.find_elements_by_xpath("//span[@class='fr66n']")
     return(self.hearts)
-  
-  def checkIfPicAlreadyLiked(self):
-    getLikeButtons()
-    if .text == 'Unlike':
-      liked = True
-    return(liked)
-    
     
   def likePic(self, number = 1):
     if checkIfPicAlreadyLiked():
