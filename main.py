@@ -2,7 +2,8 @@ from time import sleep
 from random import randint
 from igBot import instabot
 from . import config
-from . import commeting_util
+from . import commenting_util
+from . import nav
 
 def main()
   uname = str(input("Please enter your username: "))
@@ -18,7 +19,6 @@ def main()
   while actiom:
     print("P - go to profile and select first image")
     print("L - like pictures")
-    print("C - comment on pictures")
     print("H - go to hashtag")
     print("C - generate comment")
     print("8")
