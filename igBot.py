@@ -55,7 +55,32 @@ class instagramBot():
   def getLikeButtons(self):
     self.hearts = self.browser.find_elements_by_xpath("//span[@class='fr66n']")
     return(self.hearts)
+  
+  def getLikeButton(self):
+    wait = WebDriverWait(self.browser, 10)
+    like_button = wait.until(EC.visibility_of_element_located((By.XPATH, "//span[@class='fr66n']")))
+    return(like_button)
+  
+  def notAlreadyLiked(self,element):
+    self.not_liked = True
+    #try to find the glyphSpriteHeart outline. 
+    #If it doesnt exist, then the element must have changed to 'glyphSpriteHeart__filled' because it has already been liked
     
+    try:
+      heart_button = element.find_element_by_xpath("//button/span[@class='glyphsSpriteHeart__outline__24__grey_9 u-__7']")
+    except NoSuchElementException:
+      print('Picture already liked, moving on...')
+      self.not_liked = False
+      
+    return(self.not_liked)
+  
+  def likePic(self):
+    heart = self.getLikeButton()
+    self.delay()
+    try:
+      if self.notAlreadyLiked(heart):
+        heart.click()
+        
   def likePic(self, number = 1):
     if checkIfPicAlreadyLiked():
       print("Pic already liked")
@@ -77,17 +102,6 @@ class instagramBot():
         if self.loop > number:
           break
   
-  def notAlreadyLiked(self,element):
-    self.not_liked = True
-    #wait = WebDriverWait(self.browser, 10)
-    try:
-      heart_button = element.find_element_by_xpath("//button/span[@class='glyphsSpriteHeart__outline__24__grey_9 u-__7']")
-    except NoSuchElementException:
-      print('Picture already liked, moving on...')
-      self.not_liked = False
-
-    return(self.not_liked)
-
   def goToProfile(self, uname = None):
     if uname == None:
       uname = self.email
