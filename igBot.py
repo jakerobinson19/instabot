@@ -143,5 +143,10 @@ class instagramBot():
 
     return(liked)
 
+  def printStats(self):
+    print('\n--------Stats----------')
+    print('Liked {} pictures across {} profiles'.format(self.likes,len(self.profilesEngaged)))
+    print('{} errors handled'.format(self.errors_handled))
+  
   def close(self):
     self.browser.close()
