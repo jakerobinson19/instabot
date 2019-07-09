@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from time import sleep
 from random import randint
 from igBot import instabot
