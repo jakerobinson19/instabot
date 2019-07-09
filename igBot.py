@@ -81,12 +81,6 @@ class instagramBot():
     else:
       print('We do not follow this user')
 
-  def getFollowerCount(self):
-    return(int(self.browser.find_element_by_partial_link_text("followers").find_element_by_xpath('span').text.replace(',','')))
-
-  def getFollowingCount(self):
-    return(int(self.browser.find_element_by_partial_link_text("following").find_element_by_xpath('span').text.replace(',','')))
-  
   def likePic(self):
     heart = self.getLikeButton()
     self.delay()
