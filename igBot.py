@@ -74,13 +74,26 @@ class instagramBot():
       
     return(self.not_liked)
   
+  def checkIfFollowing(self):
+    status = self.browser.find_element_by_xpath("//*/button[contains(text(), 'Follow')]").text
+    if status == 'Following':
+      print('We are already following this user')
+    else:
+      print('We do not follow this user')
+
+  def getFollowerCount(self):
+    return(int(self.browser.find_element_by_partial_link_text("followers").find_element_by_xpath('span').text.replace(',','')))
+
+  def getFollowingCount(self):
+    return(int(self.browser.find_element_by_partial_link_text("following").find_element_by_xpath('span').text.replace(',','')))
+  
   def likePic(self):
     heart = self.getLikeButton()
     self.delay()
     try:
       if self.notAlreadyLiked(heart):
         heart.click()
-        
+      
   def likePic(self, number = 1):
     if checkIfPicAlreadyLiked():
       print("Pic already liked")
