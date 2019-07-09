@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from selenium import webdriver
 import random
 import emoji
