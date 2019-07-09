@@ -43,10 +43,10 @@ class instagramBot():
     self.notnow = self.browser.find_element_by_xpath('//button[text()="Not Now"]')
     self.notnow.click()
   
-  def getFollowerCount():
-    return(self.browser.find_element_by_partial_link_text("followers").find_element_by_xpath('span').text)
+  def getFollowerCount(self):
+    return(int(self.browser.find_element_by_partial_link_text("followers").find_element_by_xpath('span').get_attribute('title').replace(',','')))
 
-  def getFollowingCount():
+  def getFollowingCount(self):
     return(self.browser.find_element_by_partial_link_text("following").find_element_by_xpath('span').text)
     
   def getXpathForHeart(self, number):
