@@ -19,40 +19,18 @@ def main()
   action = True
 
   while actiom:
-    print("P - go to profile and select first image")
     print("L - like pictures")
-    print("H - go to hashtag")
     print("C - generate comment")
     print("8")
     print("X - exit app")
 
     choice = input("What would you like to do: ")
-    
-    if choice == 'P':
-      session.goToProfile()
-      session.selectPic()
-
-    elif choice == 'L':
+ 
+    if choice == 'L':
       num = int(input("How many pictures would you like to like: "))
       #hearts = session.getLikeButtons()
       session.likePicInFeed(num) #NEED TO CHANGE THIS
       print("Done liking pics")
-
-    elif choice == 'H':
-      tag = str(input("What tag would you like to explore: "))
-      session.goToHashtag(tag)
-      ans = int(input("How many pics would you like to like: "))
-      session.selectRecentPicOnExplore()
-      for iter, i in enumerate(range(ans)):
-        u = session.getUsername()
-        print("username is {}".format(u))
-        session.likePic()
-        time.sleep(1)
-        session.rightArrow()
-        
-      c = session.createComment()
-      print(c)
-      session.sendComment(emoji.emojize(c,use_aliases=True))
 
     elif choice == 'C':
       com = session.createComment()
