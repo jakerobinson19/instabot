@@ -9,6 +9,8 @@ wordOptions = [['Omg','So','Absolutely',"You're",],
                ['!','!!','!!!']]
 emojiOptions = [':heart:',':heartpulse:',':two_hearts:',':kissing_heart:',':heart_eyes:']
 
+def check_if_comments_enabled():
+  
 def createComment():
   firstWord = wordOptions[0][random.randint(0,len(wordOptions[0])-1)]
   secondWord = wordOptions[1][random.randint(0,len(wordOptions[1])-1)]
