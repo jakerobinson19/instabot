@@ -21,9 +21,24 @@ def create_comment():
   return(comment)
 
 def get_number_of_comments():
+  number_of_comments = read_xpath(['comments']['list_of_comments'])
+  return(len(number_of_comments))
+  #browser.find_elements_by_xpath("//ul[@class='Mr508']")
+  
+def get_comments(browser):
+  comments = read_xpath(['comments']['list_of_comments'])
+  return(comments)
+  #browser.find_elements_by_xpath("//ul[@class='Mr508']")
 
-def get_comments():
-
+def get_username_on_comment(comments):
+  comment_usernames = []
+  
+  for comm in comments:
+    uname = comm.read_path(['comments']['username_of_comment'])
+    comment_usernames.append(uname)
+    
+  return(comment_usernames)
+  
   
 def send_comment(self, comm):
    comment_box = WebDriverWait(self.browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "textarea.Ypffh")))
