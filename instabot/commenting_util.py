@@ -21,12 +21,12 @@ def create_comment():
   return(comment)
 
 def get_number_of_comments():
-  number_of_comments = read_xpath(['comments']['list_of_comments'])
-  return(len(number_of_comments))
+  number_of_comments = read_xpath(['comments']['comments_on_pic'])
+  return(len(comments))
   #browser.find_elements_by_xpath("//ul[@class='Mr508']")
   
 def get_comments(browser):
-  comments = read_xpath(['comments']['list_of_comments'])
+  comments = read_xpath(['comments']['comments_on_pic'])
   return(comments)
   #browser.find_elements_by_xpath("//ul[@class='Mr508']")
 
