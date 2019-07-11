@@ -12,6 +12,11 @@ xpath['get_pic'] {
       'recent': '//*[@id="react-root"]/section/main/article/div[2]/div/div[1]/div[1]/a',
       'top': '//*[@id="react-root"]/section/main/article/div[1]/div/div/div[1]/div[1]/a'
 }
+
+xpath['comments'] {
+      'comments_on_pics':"//ul[@class='Mr508']",
+      'username_on_comment':'//*/div/li/div/div[1]/div[2]/h3/a'
+}
       
 xpath['like_button'] {
       'like_button':"//span[@class='fr66n']"
