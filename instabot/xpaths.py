@@ -34,6 +34,14 @@ xpath['buttons'] {
       'first_next':'/html/body/div[3]/div[1]/div/div/a',
       'next': '/html/body/div[3]/div[1]/div/div/a[2]'
 }
+
+xpath['get_following_status'] = {
+    "follow_button_XP":"//button[text()='Following' or \
+                                  text()='Requested' or \
+                                  text()='Follow' or \
+                                  text()='Follow Back' or \
+                                  text()='Unblock']"
+}
       
 selector['login_elem'] {
       'username': 'form input',
