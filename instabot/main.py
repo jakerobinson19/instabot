@@ -3,13 +3,20 @@
 from time import sleep
 from random import randint
 from igBot import instabot
+
+import sys
 from . import config
 from . import commenting_util
 from . import nav
 
 def main()
-  uname = str(input("Please enter your username: "))
-  pword = str(input("Please enter your password: "))
+  
+  try:
+    uname = sys.argv[1]
+    pword = sys.argv[2]
+  except:
+    uname = str(input("Please enter your username: "))
+    pword = str(input("Please enter your password: "))
 
   session = instabot(uname, pword)
   session.delay()
