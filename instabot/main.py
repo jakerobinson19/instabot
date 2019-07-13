@@ -27,8 +27,7 @@ def main()
 
   while actiom:
     print("L - like pictures")
-    print("C - generate comment")
-    print("8")
+    print("8 - Run Bot")
     print("X - exit app")
 
     choice = input("What would you like to do: ")
@@ -38,10 +37,6 @@ def main()
       #hearts = session.getLikeButtons()
       session.likePicInFeed(num) #NEED TO CHANGE THIS
       print("Done liking pics")
-
-    elif choice == 'C':
-      com = session.createComment()
-      print(emoji.emojize(com,use_aliases=True))
 
     elif choice == '8':
       tag = session.hashtagList[random.randint(0,len(session.hashtagList))]
