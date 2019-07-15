@@ -20,11 +20,10 @@ xpath['comments'] = {
 }
       
 xpath['like_button'] = {
-      'like_button':"//span[@class='fr66n']"
+      'like_button':"//span[@class='fr66n']",
+      'heart_outline': "//button/span[@class='glyphsSpriteHeart__outline__24__grey_9 u-__7']",
+      'heart_filled': "//button/span[@class='glyphsSpriteHeart__filled__24__red_5 u-__7']"
 }
-
-xpath['status'] = {
-      'follow':"//*/button[contains(text(), 'Follow')]",
       
 xpath['notification_wall'] = {
       'not_now':"//button[text()='Not Now']",
@@ -36,7 +35,7 @@ xpath['buttons'] = {
       'next': '/html/body/div[3]/div[1]/div/div/a[2]'
 }
 
-xpath['get_following_status'] = {
+xpath['get_status'] = {
     "follow_button_XP":"//button[text()='Following' or \
                                   text()='Requested' or \
                                   text()='Follow' or \
