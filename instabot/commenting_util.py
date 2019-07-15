@@ -8,18 +8,13 @@ word_options = ['Omg','So','Absolutely',"Holy fluff. You're", 'Awwww', "By our f
                ['so cute','adorable','lovely','so sweet','so so adorable','fabulous'],
                ['!','!!','!!!']]
 
-def already_commented_on(self):
-    try:
-      comms = get_comments_on_post()
-      number_of_comms = len(comms)  
-      print("there are {} comments on this post".number_of_comms)
-    except:
-      print("Unable to find any comments on this post")
-
+def already_commented_on(self, bot):
     already_commented = False
 
+    comms = get_comments_on_post()
+    
     for c in comms:
-      if c.text == self.email:
+      if c.text == bot.email:
         already_commented = True
 
     return(already_commented)
@@ -35,15 +30,15 @@ def create_comment():
 def get_comments_on_post(browser):
     return(browser.find_elements_by_xpath(read_xpath('pic_comments','comments'))
 
-def get_number_of_comments(browser):
-  num_of_comments = browser.find_elements_by_xpath(read_xpath(['comments']['comments_on_pic']))
-  return(len(num_of_comments))
+def get_number_of_comments():
+  num_of_comments = len(get_comments_on_post()) - 1
+  return(num_of_comments)
 
 def get_username_on_comment(comments):
   comment_usernames = []
   
   for comm in comments:
-    uname = comm.read_path(['comments']['username_of_comment'])
+    uname = comm.read_xpath(['comments']['username_of_comment'])
     comment_usernames.append(uname)
     
   return(comment_usernames)
