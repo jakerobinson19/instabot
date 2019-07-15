@@ -43,12 +43,11 @@ def get_username_on_comment(comments):
     
   return(comment_usernames)
   
-  
-def send_comment(self, comm):
-   comment_box = WebDriverWait(self.browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "textarea.Ypffh")))
+def send_comment(comm):
+   comment_box = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "textarea.Ypffh")))
    time.sleep(1)
    comment_box.click()
-   comment_box = WebDriverWait(self.browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "textarea.Ypffh")))
+   comment_box = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "textarea.Ypffh")))
    comment_box.send_keys(comm)
    
    comment_box.send_keys(Keys.ENTER)
