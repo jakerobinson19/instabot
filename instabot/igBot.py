@@ -27,6 +27,9 @@ class instagramBot():
                         'dachshund_feature','dachshundnation','doxieofig','sausagedoges',
                         'cute', 'dachshundsarethebest','dachshundobsessed','doxies',
                         'dachshundoftheday','dachshundmoments','fluffy','dogs']
+    self.blacklist = ['dachshundoftheday.ig','dachshundlife.ig','ilovemydaschunddog',
+                      'dachshund_corner','cats_addict_01','cutedachshundclub','dachshundclothing',
+                      'dachshund_ins.gram']
     
   def signIn(self):
     self.browser.get('https://www.instagram.com/accounts/login/')
