@@ -1,4 +1,13 @@
 
+def getFollowerCount(self):
+    time.sleep(1)
+    follower_count = browser.find_element_by_partial_link_text("followers").find_element_by_xpath('span')
+    return(int(follower_count.get_attribute('title').replace(',','')))
+
+def getFollowingCount(self):
+    time.sleep(1)
+    following_count = browser.find_element_by_partial_link_text("following").find_element_by_xpath('span')
+    return(int(following_count.text.replace(',','')))
 
 def get_following_status(browser):
     status = browser.find_element_by_xpath(read_xpath('get_following_status','follow_button_XP').text
