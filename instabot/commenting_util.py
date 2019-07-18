@@ -28,7 +28,7 @@ def create_comment():
   return(comment)
 
 def get_comments_on_post(browser):
-    return(browser.find_elements_by_xpath(read_xpath('pic_comments','comments'))
+    return(browser.find_elements_by_xpath(read_xpath('pic_comments','comments')))
 
 def get_number_of_comments():
   num_of_comments = len(get_comments_on_post()) - 1
