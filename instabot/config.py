@@ -1,18 +1,19 @@
-mport datetime
+
 
 #apparently 350 likes/hour is the limit
+profiles_per_hash = 8
+likes_per_profile = 6
+
 max_likes_per_day = 500
-comments_per_day = 80
-max_comments_to_post = 80
-min_comments_to_post = 0
-start_time = 0
-end_time = 0
+max_comments_per_day = 80
+
+delay_time = 45
+
 comment_if_following = False
 like_if_following = True
 follow_back = False
 follows_per_day = 10
 follower_to_following_ratio_limit = 3
-comments_options = [['words],['more words],[punctuation]]
 
 blacklist = ['dachshundoftheday.ig', 'dachshundlife.ig', 'ilovemydaschunddog',
 			 'dachshund_corner', 'cats_addict_01', 'cutedachshundclub', 
