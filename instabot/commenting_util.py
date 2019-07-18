@@ -1,20 +1,25 @@
 #!/usr/bin/env python
 
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC 
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+
+from xpaths import read_xpath
 import random
-import emoji
 
 word_options = ['Omg','So','Absolutely',"Holy fluff. You're", 'Awwww', "By our fluffy paws! You're "],
                ['so cute','adorable','lovely','so sweet','so so adorable','fabulous'],
                ['!','!!','!!!']]
 
-def already_commented_on(self, bot):
+def already_commented_on(users_email):
     already_commented = False
 
     comms = get_comments_on_post()
     
     for c in comms:
-      if c.text == bot.email:
+      if c.text == users_email:
         already_commented = True
 
     return(already_commented)
