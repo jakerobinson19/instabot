@@ -93,8 +93,10 @@ def main()
                 new_usernames.append(usname)
               else:
                 print("commented on this yesterday")
+                continue
             else:
               print("Username in the black list")
+              continue
 
         
           print('username: {}'.format(usname))
