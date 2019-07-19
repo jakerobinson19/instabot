@@ -54,14 +54,14 @@ def main()
     #The bot selects a random hashtag from the hashtag options (created above)
     #then goes to the most recent pictures and extracts the usernames
     #then goes to each username, comments on their latest pic and likes some of their pics
-    elif choice == '2':
-      while comments_posted < session.max_comments_per_day or pics_liked < session.max_pics_liked_per_day:
-        print(session.max_comments_per_day)
+    elif choice == '8':
+      while comments_posted < config.max_comments_per_day or pics_liked < config.max_pics_liked_per_day:
+        print(config.max_comments_per_day)
         
         not_visited = True
         #select random hashtag from list using random module
         while not_visited:
-          tag = session.hashtagList[random.randint(0,len(session.hashtagList)-1)]
+          tag = config.hashtag_list[random.randint(0,len(config.hashtag_list)-1)]
         
           if tag not in hashtags_used:
             hashtags_used.append(tag)
@@ -72,7 +72,7 @@ def main()
         print("Hashtags visited: {}".format(hashtags_used))
       
         session.delay()
-        session.selectRecentPicOnExplore()
+        session.selectPicOnExplore('recent')
         profiles_explored = 0
 
         #this list will store the username which are extracted from the pics on this hashtag to loop through
@@ -80,16 +80,24 @@ def main()
 
 
         #loop through a set number of recent pics and extract the username (here 8 has been arbitrarily picked)
-        while profiles_explored < 8:
+        while profiles_explored < config.profiles_per_hash:
           usname = session.getUsername()
           time.sleep(1)
         
           #check if the username of this pic is not the users profiles (don't want to comment on our own stuff by accident)
           #if it isn't add the username to list of new_usernames to loop through and comment on
-          if usname != uname or usname not in blacklist:
-            new_usernames.append(usname.text)
+          if usname != uname:
+            if usname not in config.blacklist:
+              if usname not in config.yesterdays_usernames:
+                print("This is a new username we have yet to see...adding")
+                new_usernames.append(usname)
+              else:
+                print("commented on this yesterday")
+            else:
+              print("Username in the black list")
+
         
-          print('username: {}'.format(usname.text))
+          print('username: {}'.format(usname))
           time.sleep(1)
           session.rightArrow()
           profiles_explored = profiles_explored +1
@@ -111,12 +119,28 @@ def main()
           #otherwise go to the profile, see how many pics it has loaded, see how many followers/following and calculate the ratio
           session.goToProfile(name)
           session.delay()
+          try:
+            followers = session.getFollowerCount()
+            following = session.getFollowingCount()
+          except NoSuchElementException:
+            session.browser.execute_script("location.reload()")
+            try:
+              followers = session.getFollowerCount()
+              following = session.getFollowingCount()
+            except NoSuchElementException:
+              print("this user has no followers")
+              following = 1
+
           pics = session.getPicturesFromProfile()
           print('number of pics: {}'.format(len(pics)))
-          followers = session.getFollowerCount()
-          following = session.getFollowingCount()
-          print('Follower/following ratio: {}'.format(round(followers/following,3)))
-          session.checkIfFollowing()
+          
+          f_ratio = round(followers/following,3)
+          print('Follower/following ratio: {}'.format(f_ratio))
+
+          if f_ratio > config.follower_to_following_ratio_limit:
+            config.blacklist.append(name)
+
+          following = session.checkIfFollowing()
         
           # click on the first pic of the profile
           pics[0].click()
@@ -129,10 +153,10 @@ def main()
         
           pics_liked = 0
           while pics_liked < pics_limit:
-            if pics_liked == 0:
+            if pics_liked == 0 and following == False:
               if session.already_commented_on():
                 print("Already commented on this pic, moving on...")
-                pics_liked = pics_liked + 1
+                pics_liked = pics_limit
                 continue
               else:  
                 try:
@@ -153,10 +177,15 @@ def main()
       
         #add the usernames we commented on to the list of profiles engaged already
         usernames.extend(new_usernames)
-        pause = random.randint(120,150)
-        print("Pausing for {} seconds".format(pause))
-        time.sleep(pause)
+        pause = random.randint(60*(config.delay_time - config.delay_variance),60*(config.delay_time + config.delay_variance))
+        
         session.printStats()
+        print(usernames)
+        print("Configs blacklist \n {}".format(config.blacklist))
+
+        print("Pausing for {} minutes".format(int(pause/60)))
+        
+        pause_with_progress(int(pause/60))
 
     #print out stats of likes, comments, usernamees, etc. (will want to build this out more)
     elif choice == 'S':
