@@ -86,19 +86,18 @@ class instagramBot():
     else:
       print('We do not follow this user')
 
-def likePic(self):
+  def likePic(self):
     heart = self.getLikeButton()
     self.delay()
     if self.notAlreadyLiked(heart):
         heart.click()
         self.likes = self.likes + 1
             
-            def likePicInFeed(self, number = 1):
-                self.loop = 1
+  def likePicInFeed(self, number = 1):
+    self.loop = 1
 
-
-while self.loop <= number:
-    self.hearts = self.getFeedLikeButtons()
+    while self.loop <= number:
+      self.hearts = self.getFeedLikeButtons()
     
     for h in range(len(self.hearts)):
         #print('liking the pic {}'.format(str(self.loop + 1)))
