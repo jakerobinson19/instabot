@@ -5,16 +5,17 @@ from random import randint
 from igBot import instabot
 
 import sys
-from . import config
-from . import commenting_util
-from . import nav
+import config
+import commenting_util
+import nav
 
-def main()
+def runBot()
  
   #in calling the program in cmd line, the username and password are passed as arguments and assigned here
   uname = sys.argv[1]
   pword = sys.argv[2]
 
+  browser = webdriver.Chrome()
   #create the session by initializing the instagramBot object instance using the provided username and password
   session = instagramBot(uname, pword)
   session.delay()
@@ -142,7 +143,7 @@ def main()
           if f_ratio > config.follower_to_following_ratio_limit:
             config.blacklist.append(name)
 
-          following = session.checkIfFollowing()
+          following = checkIfFollowing(session.browser)
         
           # click on the first pic of the profile
           pics[0].click()
@@ -199,3 +200,6 @@ def main()
       session.close()
       print('Exiting...')
       y = False
+
+if __name__ == '__main__':
+ runBot()
