@@ -90,8 +90,8 @@ class instagramBot():
     heart = self.getLikeButton()
     self.delay()
     if self.notAlreadyLiked(heart):
-        heart.click()
-        self.likes = self.likes + 1
+      heart.click()
+      self.likes = self.likes + 1
             
   def likePicInFeed(self, number = 1):
     self.loop = 1
@@ -100,19 +100,19 @@ class instagramBot():
       self.hearts = self.getFeedLikeButtons()
     
     for h in range(len(self.hearts)):
-        #print('liking the pic {}'.format(str(self.loop + 1)))
-        self.delay()
-        if self.notAlreadyLiked(self.hearts[h]):
-            self.actions = ActionChains(self.browser)
-            self.actions.move_to_element(self.hearts[h])
-            self.actions.click(self.hearts[h])
-            self.actions.perform()
+      #print('liking the pic {}'.format(str(self.loop + 1)))
+      self.delay()
+      if self.notAlreadyLiked(self.hearts[h]):
+        self.actions = ActionChains(self.browser)
+        self.actions.move_to_element(self.hearts[h])
+        self.actions.click(self.hearts[h])
+        self.actions.perform()
             
-                self.likes = self.likes + 1
+        self.likes = self.likes + 1
             
-            self.loop = self.loop + 1
-                if self.loop > number:
-                    break
+        self.loop = self.loop + 1
+        if self.loop > number:
+          break
   
   def goToProfile(self, uname = None):
     if uname == None:
