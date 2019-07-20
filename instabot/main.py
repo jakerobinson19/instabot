@@ -9,7 +9,7 @@ import config
 import commenting_util
 import nav
 
-def runBot()
+def runBot():
  
   #in calling the program in cmd line, the username and password are passed as arguments and assigned here
   uname = sys.argv[1]
