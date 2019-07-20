@@ -86,33 +86,34 @@ class instagramBot():
     else:
       print('We do not follow this user')
 
-  def likePic(self):
+def likePic(self):
     heart = self.getLikeButton()
     self.delay()
-    try:
-      if self.notAlreadyLiked(heart):
+    if self.notAlreadyLiked(heart):
         heart.click()
-      
-  def likePic(self, number = 1):
-    if checkIfPicAlreadyLiked():
-      print("Pic already liked")
-    self.loop = 1
+        self.likes = self.likes + 1
+            
+            def likePicInFeed(self, number = 1):
+                self.loop = 1
 
-    while self.loop <= number:
-      self.hearts = self.getLikeButtons()
 
-      for h in range(len(self.hearts)):
-        print('liking the pic {}'.format(str(self.loop + 1)))
+while self.loop <= number:
+    self.hearts = self.getFeedLikeButtons()
+    
+    for h in range(len(self.hearts)):
+        #print('liking the pic {}'.format(str(self.loop + 1)))
         self.delay()
-        
-        self.actions = ActionChains(self.browser)
-        self.actions.move_to_element(self.hearts[h])
-        self.actions.click(self.hearts[h])
-        self.actions.perform()
-        
-        self.loop = self.loop + 1
-        if self.loop > number:
-          break
+        if self.notAlreadyLiked(self.hearts[h]):
+            self.actions = ActionChains(self.browser)
+            self.actions.move_to_element(self.hearts[h])
+            self.actions.click(self.hearts[h])
+            self.actions.perform()
+            
+                self.likes = self.likes + 1
+            
+            self.loop = self.loop + 1
+                if self.loop > number:
+                    break
   
   def goToProfile(self, uname = None):
     if uname == None:
