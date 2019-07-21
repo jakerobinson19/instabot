@@ -8,7 +8,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup as bs
 
-import emoji
 import random
 import time
 import sys
@@ -16,13 +15,12 @@ import sys
 class instagramBot():
   
   def __init__(self, email, password):
-    self.browser = webdriver.Chrome()
     self.email = email
     self.password = password
     self.likes = 0
     self.comments = 0
     self.profilesEngaged = []
-    self.hashtagList = ['dachshund', 'dachshunds', 'dachshundsonly', 'dachshund_love',
+    self.hashtag_list = ['dachshund', 'dachshunds', 'dachshundsonly', 'dachshund_love',
                         'doxiesofig', 'doxiefever', 'dachshundgram', 'dachshundlife',
                         'dachshund_feature','dachshundnation','doxieofig','sausagedoges',
                         'cute', 'dachshundsarethebest','dachshundobsessed','doxies',
@@ -31,10 +29,10 @@ class instagramBot():
                       'dachshund_corner','cats_addict_01','cutedachshundclub','dachshundclothing',
                       'dachshund_ins.gram']
     
-  def signIn(self):
-    self.browser.get('https://www.instagram.com/accounts/login/')
-    self.emailInput = self.browser.find_elements_by_css_selector('form input')[0]
-    self.passwordInput = self.browser.find_elements_by_css_selector('form input')[1]
+  def signIn(self, browser):
+    browser.get('https://www.instagram.com/accounts/login/')
+    self.emailInput = browser.find_elements_by_css_selector('form input')[0]
+    self.passwordInput = browser.find_elements_by_css_selector('form input')[1]
     
     #send email and password to fill input sections
     self.emailInput.send_keys(self.email)
@@ -45,7 +43,7 @@ class instagramBot():
     time.sleep(3)
     
     #click the not now option for the notifications pop-up that appears immediately after logging in
-    self.notnow = self.browser.find_element_by_xpath('//button[text()="Not Now"]')
+    self.notnow = browser.find_element_by_xpath('//button[text()="Not Now"]')
     self.notnow.click()
   
   def getFollowerCount(self):
