@@ -6,10 +6,10 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 
-from xpaths import read_xpath
+from read_functions import read_xpath
 import random
 
-word_options = ['Omg','So','Absolutely',"Holy fluff. You're", 'Awwww', "By our fluffy paws! You're "],
+word_options = [['Omg','So','Absolutely',"Holy fluff. You're", 'Awwww', "By our fluffy paws! You're "],
                ['so cute','adorable','lovely','so sweet','so so adorable','fabulous'],
                ['!','!!','!!!']]
 
