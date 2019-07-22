@@ -1,5 +1,6 @@
 import xlsxwriter
 import csv
+import pandas as pd
 
 from xlrd import open_workbook
 from datetime import date
@@ -14,13 +15,28 @@ def read_sheet_into_list(sheet):
 	number_of_rows = wb.nrows()
 	number_of_cols = wb.ncols()
 
-def create_todays_workbook(container):
+def get_username_list_from_sheet(workbook):
+	if os.path.isfile(workbook + '.xlsx'):
+		df = pd.read_excel(workbook + '.xlsx', sheet_name=0) 
+		usernames = df['Username'].tolist()
+	else:
+		print("File does not exist: " + workbook)
+		usernames = None
+
+	return(usernames)
+
+
+def create_workbook(container, type):
 	#check type of container
 	#check headers
-	todays_date = str(date.today())
+	if type == 'today':
+		todays_date = str(date.today())
 
-	workbook = xlsxwriter.Workbook('usernames_' + todays_date + 'xlsx')
-	worksheet = workbook.add_worksheet(todays_date)
+		workbook = xlsxwriter.Workbook('usernames_' + todays_date + '.xlsx')
+		worksheet = workbook.add_worksheet(todays_date)
+	elif type == 'blacklist':
+		workbook = xlsxwriter.Workbook('blacklist.xlsx')
+		worksheet = workbook.add_worksheet('Blacklist')
 
 	write_headers(workbook, worksheet)
 	row = 1
@@ -157,3 +173,6 @@ if __name__=="__main__":
 						'harvey_themini_dachshund']
 
 	create_todays_workbook(yesterdays_usernames)
+	yest_names = get_username_list_from_sheet('usernames_2019-07-21.xlsx')
+	print(yest_names)
+
