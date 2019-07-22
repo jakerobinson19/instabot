@@ -10,7 +10,7 @@ def getFollowingCount(self):
     return(int(following_count.text.replace(',','')))
 
 def get_following_status(browser):
-    status = browser.find_element_by_xpath(read_xpath('get_following_status','follow_button_XP').text
+    status = browser.find_element_by_xpath(read_xpath('get_following_status','follow_button_XP')).text
     if status == 'Following':
       print('We are already following this user')
     elif status == 'Follow Back':
