@@ -32,8 +32,10 @@ def feed_like_buttons(browser):
     return(hearts)
     
 def follower_count(browser):
-    follower_element = browser.find_element_by_partial_link_text("followers").find_element_by_xpath('span')
-    follower_count = int(follower_element.get_attribute('title').replace(',',''))
+    try:
+        follower_element = browser.find_element_by_partial_link_text("followers").find_element_by_xpath('span')
+        follower_count = int(follower_element.get_attribute('title').replace(',',''))
+    except NoSuchElementException:
 
     return(follower_count)
 

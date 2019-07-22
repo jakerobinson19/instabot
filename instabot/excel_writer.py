@@ -1,4 +1,6 @@
 import xlsxwriter
+import csv
+
 from xlrd import open_workbook
 from datetime import date
 
@@ -9,14 +11,15 @@ def read_sheet_into_list(sheet):
 	except error as e:
 		print(e)
 
-	number_of_rows = 0
+	number_of_rows = wb.nrows()
+	number_of_cols = wb.ncols()
 
 def create_todays_workbook(container):
 	#check type of container
 	#check headers
 	todays_date = str(date.today())
 
-	workbook = xlsxwriter.Workbook('usernames_' + todays_date + '.xlsx')
+	workbook = xlsxwriter.Workbook('usernames_' + todays_date + 'xlsx')
 	worksheet = workbook.add_worksheet(todays_date)
 
 	write_headers(workbook, worksheet)
@@ -28,6 +31,9 @@ def create_todays_workbook(container):
 		row += 1
 
 	workbook.close()
+
+def create_csv_file(container):
+	csv_writer = csv.writer(container)
 
 def write_headers(workbook, worksheet, row=0):
 	cell_format = workbook.add_format({'bold': True, 
