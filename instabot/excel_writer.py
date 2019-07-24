@@ -1,30 +1,17 @@
 import xlsxwriter
-import csv
 import pandas as pd
-
-from xlrd import open_workbook
+import os.path
 from datetime import date
-
-
-def read_sheet_into_list(sheet):
-	try:	
-		wb = open_workbook(sheet)
-	except error as e:
-		print(e)
-
-	number_of_rows = wb.nrows()
-	number_of_cols = wb.ncols()
 
 def get_username_list_from_sheet(workbook):
 	if os.path.isfile(workbook + '.xlsx'):
 		df = pd.read_excel(workbook + '.xlsx', sheet_name=0) 
 		usernames = df['Username'].tolist()
 	else:
-		print("File does not exist: " + workbook)
+		print("File " + workbook + " does not exist")
 		usernames = None
 
 	return(usernames)
-
 
 def create_workbook(container, type):
 	#check type of container
@@ -48,9 +35,6 @@ def create_workbook(container, type):
 
 	workbook.close()
 
-def create_csv_file(container):
-	csv_writer = csv.writer(container)
-
 def write_headers(workbook, worksheet, row=0):
 	cell_format = workbook.add_format({'bold': True, 
 									   'bg_color': 'blue', 
@@ -61,6 +45,7 @@ def write_headers(workbook, worksheet, row=0):
 	worksheet.write(0,0, 'Username', cell_format)
 	worksheet.write(0,1, 'F2F Ratio', cell_format)
 	worksheet.write(0,2, "Status", cell_format)
+	worksheet.set_column(0,3,30)
 
 
 if __name__=="__main__":
