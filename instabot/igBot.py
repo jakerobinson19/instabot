@@ -25,9 +25,6 @@ class instagramBot():
                         'dachshund_feature','dachshundnation','doxieofig','sausagedoges',
                         'cute', 'dachshundsarethebest','dachshundobsessed','doxies',
                         'dachshundoftheday','dachshundmoments','fluffy','dogs']
-    self.blacklist = ['dachshundoftheday.ig','dachshundlife.ig','ilovemydaschunddog',
-                      'dachshund_corner','cats_addict_01','cutedachshundclub','dachshundclothing',
-                      'dachshund_ins.gram']
     
   def signIn(self, browser):
     browser.get('https://www.instagram.com/accounts/login/')
@@ -77,12 +74,16 @@ class instagramBot():
       
     return(self.not_liked)
   
-  def checkIfFollowing(self):
+  def check_if_following(self):
     status = self.browser.find_element_by_xpath("//*/button[contains(text(), 'Follow')]").text
     if status == 'Following':
       print('We are already following this user')
     else:
       print('We do not follow this user')
+
+  def get_follow_status(self):
+    status = self.browser.find_element_by_xpath(read_xpath('get_following_status','follow_button_XP')).text
+    return(status)
 
   def likePic(self):
     heart = self.getLikeButton()
