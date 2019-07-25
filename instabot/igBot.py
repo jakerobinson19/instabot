@@ -202,5 +202,30 @@ class instagramBot():
     print('Liked {} pictures across {} profiles'.format(self.likes,len(self.profilesEngaged)))
     print('{} errors handled'.format(self.errors_handled))
   
+  def validate_username(self, usname):
+    if usname == self.email:
+      msg = "THIS IS YOUR USERNAME. DO NOT INCLUDE"
+      return(False, msg)
+    elif usname in self.blacklist:
+      msg = "------ Username is in the blacklist ------"    
+      return(False, msg)
+    elif usname in self.ignore_users:
+      msg = "------ Engaged with this username before ------"
+      return(False, msg)
+    else:
+      return(True, None)
+  
+  def validate_caption(self, caption):
+    abort = False
+    
+    for word in bad_words:
+      if word in caption:
+        print("Bad word in the caption ({})".format(word))
+        abort = True
+
+    return(abort)
+  
+  
+  
   def close(self):
     self.browser.close()
