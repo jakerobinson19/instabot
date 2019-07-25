@@ -106,24 +106,30 @@ def runBot():
         #loop through a set number of recent pics and extract the username (here 8 has been arbitrarily picked)
         while profiles_explored < config.profiles_per_hash:
           usname = session.getUsername()
-          time.sleep(1)
+          session.delay()
         
           #check if the username of this pic is not the users profiles (don't want to comment on our own stuff by accident)
           #if it isn't add the username to list of new_usernames to loop through and comment on
-          if usname != uname:
-            if usname not in config.blacklist:
-              if usname not in config.yesterdays_usernames:
-                print("This is a new username we have yet to see...adding")
-                new_usernames.append(usname)
-              else:
-                print("commented on this yesterday")
-                continue
-            else:
-              print("Username in the black list")
-              continue
+          valid, msg = session.validate_username(usname)
+          if valid:
+            new_usernames.append(usname)
+          else:
+            print(msg)
+            profiles_explored = profiles_explored - 1
 
         
           print('username: {}'.format(usname))
+          comms = session.get_comments_on_post()
+
+          try:
+            for c in comms:
+              abort = validate_caption(comms)
+              if abort:
+                print("Found bad word in comments --- avoiding this")
+                break
+          except:
+            pass
+
           time.sleep(1)
           session.rightArrow()
           profiles_explored = profiles_explored +1
