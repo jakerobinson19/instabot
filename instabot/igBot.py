@@ -14,12 +14,21 @@ import sys
 
 class instagramBot():
   
-  def __init__(self, email, password):
+  def __init__(self, browser, email, password):
+    self.browser = browser
     self.email = email
     self.password = password
     self.likes = 0
     self.comments = 0
-    self.profilesEngaged = []
+    self.profiles_engaged = 0
+    self.errors_handled = 0
+    self.begin_following = 0
+    self.end_following = 0
+    self.blacklist = None
+    self.ignore_users = None
+    self.follow_back_engage = config.interact_if_follow_back
+    self.ignore_if_contains = None
+    self.start_time = datetime.datetime.now()
     self.hashtag_list = ['dachshund', 'dachshunds', 'dachshundsonly', 'dachshund_love',
                         'doxiesofig', 'doxiefever', 'dachshundgram', 'dachshundlife',
                         'dachshund_feature','dachshundnation','doxieofig','sausagedoges',
