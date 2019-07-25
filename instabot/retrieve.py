@@ -61,3 +61,20 @@ def get_current_url(browser):
             current_url = None
 
     return current_url
+
+def get_follower_to_following_ratio(self, name):
+    web_nav.go_to_profile(name)
+    try:
+      followers = follower_count()
+      following = following_count()
+    except NoSuchElementException:
+      browser.execute_script("location.reload()")
+      try:
+        followers = get_follower_count()
+        following = get_following_count()
+      except NoSuchElementException:
+        print("this user has no followers")
+        following = 1
+
+    f_ratio = round(followers/following,3)
+    return(f_ratio)
