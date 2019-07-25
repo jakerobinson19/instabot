@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from datetime import date
 from time import sleep
 from random import randint
 from selenium import webdriver
@@ -12,15 +13,35 @@ import commenting_util
 import nav
 
 def runBot():
- 
+  today = date.today()
+
+    if not os.path.isfile('blacklist.xlsx'):
+      print('blacklist does not exist, creating one...')
+      excel_writer([], 'blacklist')
+
+  blacklist = excel_writer.get_usernames_list_from_sheet('blacklist')
+
+  old_usernames = []
+
+  for day_num in range(config.days_to_refresh_username_lists,-1,-1):
+    date = str(today - datetime.timedelta(days=day_num))
+    
+    day_usernames = excel_writer.get_usernames_list_from_sheet('usernames_' + date)
+    if day_usernames:
+      old_usernames.extend(day_usernames)
+
+
   #in calling the program in cmd line, the username and password are passed as arguments and assigned here
   uname = sys.argv[1]
   pword = sys.argv[2]
 
   browser = webdriver.Chrome()
   #create the session by initializing the instagramBot object instance using the provided username and password
-  session = instagramBot(uname, pword)
+  session = instagramBot(browser, uname, pword)
   session.delay()
+  session.set_blacklist(blacklist)
+  session.set_ignore_users(old_usernames)
+  session.set_ignore_if_contains(config.bad_words)
 
   #sign in 
   session.signIn()
