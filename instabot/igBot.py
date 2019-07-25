@@ -43,6 +43,23 @@ class instagramBot():
     self.notnow = browser.find_element_by_xpath('//button[text()="Not Now"]')
     self.notnow.click()
   
+  def set_blacklist(self, users):
+    self.blacklist = users
+    
+    return(self)
+  
+  def set_ignore_users(self, users=None):
+    self.ignore_users = users
+    
+    return(self)
+
+  def set_ignore_if_contains(self, words=None):
+    """Ignores the don't likes if the description contains
+    one of the given words"""
+    self.ignore_if_contains = words or []
+
+    return(self)
+  
   def getFollowerCount(self):
     return(int(self.browser.find_element_by_partial_link_text("followers").find_element_by_xpath('span').get_attribute('title').replace(',','')))
 
