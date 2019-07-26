@@ -2,6 +2,10 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 
+from selenium.webdriver.support import expected_conditions as EC 
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+
 """Exceptions"""
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import WebDriverException
@@ -9,7 +13,6 @@ from selenium.common.exceptions import TimeoutException
 
 from finder_function import read_xpath
 from finder_function import read_selector
-
 
 
 def username_from_profile(browser):
@@ -35,8 +38,10 @@ def follower_count(browser):
     try:
         follower_element = browser.find_element_by_partial_link_text("followers").find_element_by_xpath('span')
         follower_count = int(follower_element.get_attribute('title').replace(',',''))
-    except NoSuchElementException:
-
+    except NoSuchElementException as e:
+        print("error occurred: {}".format(e))
+        follower_count = 1
+        
     return(follower_count)
 
 def following_count(browser):
@@ -62,16 +67,21 @@ def get_current_url(browser):
 
     return current_url
 
-def get_follower_to_following_ratio(self, name):
-    web_nav.go_to_profile(name)
+def follow_status(browser):
+    status = browser.find_element_by_xpath(read_xpath('get_following_status','follow_button_XP')).text
+    return(status)
+
+def follower_to_following_ratio(browser, my_name, username):
+    web_nav.go_to_profile(my_name, username)
+
     try:
       followers = follower_count()
       following = following_count()
     except NoSuchElementException:
       browser.execute_script("location.reload()")
       try:
-        followers = get_follower_count()
-        following = get_following_count()
+        followers = follower_count()
+        following = following_count()
       except NoSuchElementException:
         print("this user has no followers")
         following = 1
