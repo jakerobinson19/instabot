@@ -97,3 +97,16 @@ def follower_to_following_ratio(browser, my_name, username):
 
     f_ratio = round(followers/following,3)
     return(f_ratio)
+
+def datetime_of_post(browser):
+    t = browser.find_element_by_xpath(read_xpath('post','timestamp')).get_attribute('datetime')
+    return(t)
+
+def media_type(browser):
+    type = 'pic'
+    try:
+        type = browser.find_element_by_xpath(read_xpath('post','video_identifier')).get_attribute('type')
+    except NoSuchElementException:
+        pass
+
+    return(type)
