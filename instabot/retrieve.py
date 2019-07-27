@@ -21,9 +21,18 @@ def username_from_profile(browser):
    
     return(uname)
     
-def comments_on_post(browser):
-    return(browser.find_elements_by_xpath(read_xpath('comments','comments_on_pic')))
-      
+def get_usernames_from_comments(self):
+    comm_unames = WebDriverWait(self.browser, 10).until(
+    EC.presence_of_all_elements_located((By.XPATH, read_xpath('comments','comments_on_pic')))
+    )   
+    return(comm_unames)
+  
+def get_comments_on_post(self):
+    comms = WebDriverWait(self.browser, 10).until(
+    EC.presence_of_all_elements_located((By.XPATH, read_xpath('comments','comment_section')))
+    )   
+    return(comms)
+
 def like_button(browser):
     wait = WebDriverWait(browser, 10)
     
