@@ -202,15 +202,19 @@ class instagramBot():
     print('Liked {} pictures across {} profiles'.format(self.likes,len(self.profilesEngaged)))
     print('{} errors handled'.format(self.errors_handled))
   
-  def validate_username(self, usname):
+  def validate_username(self, usname, used_usernames = None):
+    
     if usname == self.email:
       msg = "THIS IS YOUR USERNAME. DO NOT INCLUDE"
       return(False, msg)
-    elif usname in self.blacklist:
+    elif self.check_blacklist(usname):
       msg = "------ Username is in the blacklist ------"    
       return(False, msg)
-    elif usname in self.ignore_users:
+    elif self.check_ignore_users(usname):
       msg = "------ Engaged with this username before ------"
+      return(False, msg)
+    elif used_usernames and usname in used_usernames:
+      msg = "Already commented and liked this profile today"
       return(False, msg)
     else:
       return(True, None)
@@ -225,7 +229,23 @@ class instagramBot():
 
     return(abort)
   
-  
+ def check_blacklist(self, name):
+    
+    for item in self.blacklist:
+      print(item)
+      if name in item:
+        return(True)
+        
+    return(False)
+
+  def check_ignore_users(self, name):
+
+    for item in self.ignore_users:
+      print(item)
+      if name in item:
+        return(True)
+
+    return(False)
   
   def close(self):
     self.browser.close()
