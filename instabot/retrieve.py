@@ -13,37 +13,40 @@ from finder_function import read_selector
 
 
 def username_from_profile(browser):
-    wait = WebDriverWait(browser, 10)
-    uname = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, read_selector('elements','profile_username'))))
+    uname = WebDriverWait(browser, 10).until(
+            EC.visibility_of_element_located((By.CSS_SELECTOR, read_selector('elements','profile_username')))
+            )
    
     return(uname)
     
-def get_usernames_from_comments(self):
+def get_usernames_from_comments(browser):
     comm_unames = WebDriverWait(browser, 10).until(
-    EC.presence_of_all_elements_located((By.XPATH, read_xpath('comments','comments_on_pic')))
-    )   
+                  EC.presence_of_all_elements_located((By.XPATH, read_xpath('comments','comments_on_pic')))
+                )   
     return(comm_unames)
   
-def get_comments_on_post(self):
+def get_comments_on_post(browser):
     comms = WebDriverWait(browser, 10).until(
-    EC.presence_of_all_elements_located((By.XPATH, read_xpath('comments','comment_section')))
-    )   
+            EC.presence_of_all_elements_located((By.XPATH, read_xpath('comments','comment_section')))
+            )   
     return(comms)
 
 def like_button(browser):
     like_button = WebDriverWait(browser, 10).until(
-    EC.visibility_of_element_located((By.XPATH, read_xpath('like_button','like_button')))
-    )
+                  EC.visibility_of_element_located((By.XPATH, read_xpath('like_button','like_button')))
+                )
     return(like_button)
     
 def feed_like_buttons(browser):
     hearts = browser.find_elements_by_xpath("//span[@class='fr66n']")
+    
     return(hearts)
     
 def follower_count(browser):
     try:
         follower_element = browser.find_element_by_partial_link_text("followers").find_element_by_xpath('span')
         follower_count = int(follower_element.get_attribute('title').replace(',',''))
+        
     except NoSuchElementException as e:
         print("error occurred: {}".format(e))
         follower_count = 1
@@ -83,11 +86,13 @@ def follower_to_following_ratio(browser, my_name, username):
     try:
       followers = follower_count()
       following = following_count()
+        
     except NoSuchElementException:
       browser.execute_script("location.reload()")
       try:
         followers = follower_count()
         following = following_count()
+        
       except NoSuchElementException:
         print("this user has no followers")
         following = 1
@@ -103,6 +108,7 @@ def media_type(browser):
     type = 'pic'
     try:
         type = browser.find_element_by_xpath(read_xpath('post','video_identifier')).get_attribute('type')
+        
     except NoSuchElementException:
         pass
 
