@@ -21,3 +21,5 @@ def go_to_profile(bot, uname = None):
 def go_to_hashtag(browser, hashtag):
     browser.get('https://www.instagram.com/explore/tags/{}/'.format(hashtag))
   
+def close(self):
+    self.browser.close()
