@@ -108,8 +108,7 @@ def media_type(browser):
     type = 'pic'
     try:
         type = browser.find_element_by_xpath(read_xpath('post','video_identifier')).get_attribute('type')
-        
     except NoSuchElementException:
         pass
 
-    return(type)
+    return(type))
