@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 
-from selenium import webdriver
+#selenium modules
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 
+#instabot modules
+from config import wordOptions
 from read_functions import read_xpath
-import random
 
-word_options = [['Omg','So','Absolutely',"Holy fluff. You're", 'Awwww', "By our fluffy paws! You're "],
-               ['so cute','adorable','lovely','so sweet','so so adorable','fabulous'],
-               ['!','!!','!!!']]
+#plus a little randomness
+import random
 
 def already_commented_on(users_email):
     already_commented = False
@@ -33,7 +33,15 @@ def create_comment():
   return(comment)
 
 def get_comments_on_post(browser):
-    return(browser.find_elements_by_xpath(read_xpath('pic_comments','comments')))
+    try:
+      comms = WebDriverWait(self.browser, 10).until(
+      EC.presence_of_all_elements_located((By.XPATH, read_xpath('comments','comment_section')))
+      )   
+    except TimeoutException:
+      print("No comments or caption on this post")
+      comms = None
+
+    return(comms)
 
 def get_number_of_comments():
   num_of_comments = len(get_comments_on_post()) - 1
@@ -48,7 +56,7 @@ def get_username_on_comment(comments):
     
   return(comment_usernames)
   
-def send_comment(comm):
+def send_comment(browser, comm):
    comment_box = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "textarea.Ypffh")))
    time.sleep(1)
    comment_box.click()
@@ -58,3 +66,19 @@ def send_comment(comm):
    comment_box.send_keys(Keys.ENTER)
    comments = comments + 1
 
+def is_commenting_disabled(browser):
+    try:
+        is_disabled = browser.execute_script("return window._sharedData.entry_data.PostPage[0].graphql.shortcode_media.comments_disabled")
+    except:
+        try:
+            browser.execute_script("location.reload()")
+            is_disabled = browser.execute_script("return window._sharedData.entry_data.PostPage[0].graphql.shortcode_media.comments_disabled")  
+        except Exception as e:
+            msg = ("Failed to check comments' status for verification!\n\t{}"
+                   .format(str(e).encode("utf-8")))
+            return False, msg
+    
+    if is_disabled:
+      return True, 'Comment are disabled for this post'
+
+    return False, "Comments Enabled"
