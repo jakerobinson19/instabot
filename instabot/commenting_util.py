@@ -48,13 +48,15 @@ def get_number_of_comments():
   return(num_of_comments)
 
 def get_username_on_comment(comments):
-  comment_usernames = []
-  
-  for comm in comments:
-    uname = comm.read_xpath(['comments']['username_of_comment'])
-    comment_usernames.append(uname)
+    try:
+        comm_unames = WebDriverWait(browser, 10).until(
+        EC.presence_of_all_elements_located((By.XPATH, read_xpath('comments','comments_on_pic')))
+        )
+    except TimeoutException:
+        print("Unable to grab usernames from comments - error occurred")
+        comm_unames = None
     
-  return(comment_usernames)
+    return(comm_unames)
   
 def send_comment(browser, comm):
    comment_box = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "textarea.Ypffh")))
