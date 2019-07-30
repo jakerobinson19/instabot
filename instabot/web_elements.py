@@ -43,6 +43,12 @@ xpath['get_status'] = {
                                   text()='Unblock']"
 }
 
+xpath['post'] = {
+    'video_identifier': '//video',
+    'video_tag': "//div[@class'ZyFrc']",
+    'timestamp':"//time[@class='_1o9PC Nzb55']"
+}
+
 selector = {}
       
 selector['login_elem'] = {
