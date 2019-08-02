@@ -16,6 +16,10 @@ interact_if_follow_back = False
 comment_on_videos = True
 comment_on_pictures = True
 
+#if post has higher than these values it will not like or comment
+max_comments_on_post = 15
+max_likes_on_post = 300
+
 days_to_refresh_username_lists = 5
 
 follow_back = False
