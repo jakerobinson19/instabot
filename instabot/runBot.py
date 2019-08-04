@@ -10,7 +10,7 @@ from igBot import instagramBot
 import sys
 import config
 import commenting_util
-import nav
+import web_nav
 
 def runBot():
   today = date.today()
@@ -178,8 +178,8 @@ def runBot():
           pics[0].click()
 
           #set the limit on how many pics to like. Max is 6 and if the profile has less than 6 pics we like them all
-          if len(pics) > 6:
-            pics_limit = 6
+          if len(pics) > config.max_likes:
+            pics_limit = config.max_likes
           else:
             pics_limit = len(pics)
         
@@ -204,7 +204,7 @@ def runBot():
 
 
             session.likePic()
-            session.rightArrow()
+            web_nav.rightArrow()
             pics_liked = pics_liked + 1
       
         #add the usernames we commented on to the list of profiles engaged already
