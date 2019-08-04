@@ -13,7 +13,7 @@ To install Selenium, enter the commands below (based on your operation system):
 #### Windows:
 pip install selenium
 
-#### MacOs:
+#### MacOS:
 sudo easy_install selenium
 
 ### Install drivers:
