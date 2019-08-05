@@ -28,8 +28,9 @@ def create_comment():
   firstWord = wordOptions[0][random.randint(0,len(wordOptions[0])-1)]
   secondWord = wordOptions[1][random.randint(0,len(wordOptions[1])-1)]
   punctuation = self.wordOptions[2][random.randint(0,len(self.wordOptions[2])-1)]
+  emoji = emoji_options[random.randint(0,len(emoji_options)-1)]
   
-  comment = firstWord + ' ' + secondWord + punctuation
+  comment = firstWord + ' ' + secondWord + punctuation + ' ' + emoji + ' '
   return(comment)
 
 def get_comments_on_post(browser):
@@ -63,10 +64,14 @@ def send_comment(browser, comm):
    time.sleep(1)
    comment_box.click()
    comment_box = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "textarea.Ypffh")))
-   comment_box.send_keys(comm)
-   
-   comment_box.send_keys(Keys.ENTER)
-   comments = comments + 1
+   browser.execute_script(
+                "arguments[0].value = arguments[1];",
+                comment_box, comm)
+
+  comment_box.send_keys('\b')
+  comment_box = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, read_selector('elements','comment_box'))))
+  comment_box.send_keys(Keys.ENTER)
+  comments = comments + 1
 
 def is_commenting_disabled(browser):
     try:
