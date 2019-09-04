@@ -8,6 +8,7 @@ from selenium.webdriver.common.by import By
 
 #instabot modules
 from config import wordOptions
+from config import commenting_params
 from read_functions import read_xpath
 
 #plus a little randomness
@@ -89,3 +90,14 @@ def is_commenting_disabled(browser):
       return True, 'Comment are disabled for this post'
 
     return False, "Comments Enabled"
+
+def validate_commenting(post, media_type):
+    if commenting_params['ENABLE_COMMENTS']:
+        if commenting_params['COMMENT_ON_PICS'] and media_type == 'pic':
+            comment_allowed = True
+        elif commenting_params['COMMENT_ON_PICS'] and media_type == 'video':
+            comment_allowed = True
+        else:
+            comment_allowed = False
+            
+    return(comment_allowed)
