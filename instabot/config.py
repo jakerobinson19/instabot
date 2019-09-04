@@ -1,9 +1,16 @@
+#configuration parameters for how the bot will run and what profiles/pics it will engage with
 
+# Determine if you want the bot to go to each profile to like/comment
+# If set to False, the bot will simply like/comment the post from the explore page for the hashtag
+go_to_profiles = True
 
-#apparently 350 likes/hour is the limit
+# Apparently 350 likes/hour is the limit set by instagram
+# Keep this in mind when setting the parameters for likes_per_hash and delay_time
 profiles_per_hash = 10
 likes_per_profile = 6
 
+# Max quotas that the bot will not exceed
+# Bot will stop once it reaches either of these limits within 24 hours
 max_likes_per_day = 500
 max_comments_per_day = 80
 
