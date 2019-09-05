@@ -4,6 +4,7 @@ from datetime import date
 from time import sleep
 from random import randint
 from selenium import webdriver
+import argparse
 
 from igBot import instagramBot
 
@@ -14,6 +15,14 @@ import web_nav
 
 today = date.today()
 
+# parse arguments
+parser = argparse.ArgumentParser(description='Automated Bot for Instagram using Python and Selenium')
+parser.add_argument('-u', '--username', metavar='USERNAME', type=str, default = config.USERNAME, help='Instagram username handle', dest='username')
+parser.add_argument('-p', '--password', metavar='PASSWORD', type=str, default = config.PASSWORD, help='Password for Instagram account', dest='password')
+
+args = parser.parse_args()
+
+
 if not os.path.isfile('blacklist.xlsx'):
     print('blacklist does not exist, creating one...')
     excel_writer([], 'blacklist')
@@ -22,7 +31,7 @@ blacklist = excel_writer.get_usernames_list_from_sheet('blacklist')
 
 old_usernames = []
 
-#create function for this create_daily_username_list
+#create function for this create_daily_username_list - move to database handler
 for day_num in range(config.days_to_refresh_username_lists,-1,-1):
     date = str(today - datetime.timedelta(days=day_num))
     
@@ -32,13 +41,11 @@ for day_num in range(config.days_to_refresh_username_lists,-1,-1):
 
 #make this argparse
 #in calling the program in cmd line, the username and password are passed as arguments and assigned here
-uname = sys.argv[1]
-pword = sys.argv[2]
 
 browser = web_nav.init_driver()
   
 #create the session by initializing the instagramBot object instance using the provided username and password
-bot = instagramBot(browser, uname, pword)
+bot = instagramBot(browser, args.username, args.password)
 bot.delay()
   session.set_blacklist(blacklist)
   session.set_ignore_users(old_usernames)
