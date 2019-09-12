@@ -1,242 +1,245 @@
-#!/usr/bin/env python
-
-from datetime import date
-from time import sleep
-from random import randint
-from selenium import webdriver
+# import third party and built in ibraries
+import datetime
 import argparse
-
-from igBot import instagramBot
-
+import os.path
+import random
+import time
 import sys
-import config
-import commenting_util
+
+# instabot libraries
+from instabot import instagramBot
+from comment_util import create_comment
+from comment_util import send_comment
+import browser
 import web_nav
+import retrieve
+import comment_util
+import database_handler
+import excel_writer
+import config
 
-today = date.today()
+# import third party and built in ibraries
+import datetime
+from datetime import date
+import os.path
+import random
+import time
+import sys
 
-# parse arguments
+import emoji
+
+today = datetime.date.today()
+date_range = [(today - datetime.timedelta(days=i)) for i in range(config.days_to_refresh_username_lists, -1, -1)]
+
+database_handler.create_database(config.db_path, config.db_name)
+
+blacklist = database_handler.get_usernames_from_table_where('f2f_ratio', 'GREATER THAN', 
+                                                            config.follower_to_following_ratio_limit)
+old_usernames = database_handler.get_username_from_table_where('caldate', )
+  
 parser = argparse.ArgumentParser(description='Automated Bot for Instagram using Python and Selenium')
 parser.add_argument('-u', '--username', metavar='USERNAME', type=str, default = config.USERNAME, help='Instagram username handle', dest='username')
 parser.add_argument('-p', '--password', metavar='PASSWORD', type=str, default = config.PASSWORD, help='Password for Instagram account', dest='password')
 
 args = parser.parse_args()
 
-
-if not os.path.isfile('blacklist.xlsx'):
-    print('blacklist does not exist, creating one...')
-    excel_writer([], 'blacklist')
-
-blacklist = excel_writer.get_usernames_list_from_sheet('blacklist')
-
-old_usernames = []
-
-#create function for this create_daily_username_list - move to database handler
-for day_num in range(config.days_to_refresh_username_lists,-1,-1):
-    date = str(today - datetime.timedelta(days=day_num))
-    
-    day_usernames = excel_writer.get_usernames_list_from_sheet('usernames_' + date)
-    if day_usernames:
-        old_usernames.extend(day_usernames)
-
-#make this argparse
-#in calling the program in cmd line, the username and password are passed as arguments and assigned here
-
-browser = web_nav.init_driver()
-  
+browser = browser.init_driver('/usr/local/bin/chromedriver')
 #create the session by initializing the instagramBot object instance using the provided username and password
-bot = instagramBot(browser, args.username, args.password)
-bot.delay()
-  session.set_blacklist(blacklist)
-  session.set_ignore_users(old_usernames)
-  session.set_ignore_if_contains(config.bad_words)
+session = instagramBot(browser, args.username, args.password)
+session.delay()
+session.set_blacklist(blacklist)
+session.set_ignore_users(old_usernames)
+session.set_ignore_if_contains(config.bad_words)
 
-  #sign in 
-  session.signIn()
+#sign in 
+session.signIn()
 
-  #create an empty list to store all the usernames which the bot engages with while running
-  #this is primarily for reference to make sure it doesn't like and comment on the same profile in a day
-  usernames = []
-  hashtags_used = []
-  comments_posted = 0
+#create an empty list to store all the usernames which the bot engages with while running
+#this is primarily for reference to make sure it doesn't like and comment on the same profile in a day
+usernames = []
+hashtags_used = []
+comments_posted = 0
 
-  y = True
+print(blacklist)
 
-  while y:
-    print("L - like pictures")
-    print("8 - Run the Bot")
-    print("U - Unfollow a User")
-    print("S - get statistics")
-    print("X - exit app")
+y = True
 
-    choice = input("What would you like to do: ")
+while y:
+  print("L - like pictures")
+  print("R - Run the Bot")
+  print("X - exit app")
 
-    #L to like a specified number of pictures in the users feed
-    if choice == 'L':
-      num = int(input("How many pictures would you like to like: "))
-      #hearts = session.getLikeButtons()
-      session.likePicInFeed(num) #NEED TO CHANGE THIS
-      print("Done liking pics")
+  choice = input("What would you like to do: ")
 
-    elif choice == 'U':
-      inp = input("What user would you like to unfollow? ")
-      session.unfollow_user(inp)
+  #L to like a specified number of pictures in the users feed
+  if choice == 'L':
+    num = int(input("How many pictures would you like to like: "))
+    
+    web_nav.go_to_feed()
+    liking.likePicInFeed(num) #NEED TO CHANGE THIS
+    print("Done liking pics")
 
-    #run the main function of the bot
-    #The bot selects a random hashtag from the hashtag options (created above)
-    #then goes to the most recent pictures and extracts the usernames
-    #then goes to each username, comments on their latest pic and likes some of their pics
-    elif choice == '8':
-      while comments_posted < config.max_comments_per_day or pics_liked < config.max_pics_liked_per_day:
-        print(config.max_comments_per_day)
+  #run the main function of the bot
+  #The bot selects a random hashtag from the hashtag options (created above)
+  #then goes to the most recent pictures and extracts the usernames
+  #then goes to each username, comments on their latest pic and likes some of their pics
+  elif choice == '8':
+    web_nav.go_to_profile(browser)
+    start_followers = retrieve.follower_count(browser)
+    print('Today you started with {} followers'.format(start_followers))
+
+    while comments_posted < config.max_comments_per_day and session.likes < config.max_likes_per_day:
+      print(config.max_comments_per_day)
         
-        not_visited = True
-        #select random hashtag from list using random module
-        while not_visited:
-          tag = config.hashtag_list[random.randint(0,len(config.hashtag_list)-1)]
+      #select random hashtag from list using random moddule
+      tag = config.hashtag_list[random.randint(0,len(config.hashtag_list)-1)]
         
-          if tag not in hashtags_used:
-            hashtags_used.append(tag)
-            not_visited = False
+        if tag not in hashtags_used:
+          hashtags_used.append(tag)
+          not_visited = False
       
-        session.goToHashtag(tag)
+      web_nav.go_to_hashtag(browser, tag)
 
-        print("Hashtags visited: {}".format(hashtags_used))
-      
-        session.delay()
-        session.selectPicOnExplore('recent')
-        profiles_explored = 0
+      print("Hashtags visited: {}".format(hashtags_used))
 
-        #this list will store the username which are extracted from the pics on this hashtag to loop through
-        new_usernames = []
+      session.delay()
+      session.selectPicOnExplore('recent')
+      profiles_explored = 0
 
+      #this list will store the username which are extracted from the pics on this hashtag to loop through
+      new_usernames = []
 
-        #loop through a set number of recent pics and extract the username (here 8 has been arbitrarily picked)
-        while profiles_explored < config.profiles_per_hash:
-          usname = session.getUsername()
-          session.delay()
+      #loop through a set number of recent pics and extract the username (here 8 has been arbitrarily picked)
+      while profiles_explored < config.profiles_per_hash:
+        usname = retrieve.username_from_profile(browser)
         
-          #check if the username of this pic is not the users profiles (don't want to comment on our own stuff by accident)
-          #if it isn't add the username to list of new_usernames to loop through and comment on
-          valid, msg = session.validate_username(usname)
-          if valid:
-            new_usernames.append(usname)
-          else:
-            print(msg)
-            profiles_explored = profiles_explored - 1
+        #check if the username of this pic is not the users profiles (don't want to comment on our own stuff by accident)
+        #if it isn't add the username to list of new_usernames to loop through and comment on
+        valid, msg = validation.validate_username(usname, usernames)
+        if valid:
+          new_usernames.append(usname)
+        else:
+          print(msg)
+          profiles_explored = profiles_explored - 1
 
         
-          print('username: {}'.format(usname))
-          comms = session.get_comments_on_post()
+        print('username: {}'.format(usname))
 
+        caption = retrieve.pic_caption(browser)
+        abort = validation.validate_caption(caption)
+        if abort:
+          print("Found bad word in comments --- avoiding this")
           try:
-            for c in comms:
-              abort = validate_caption(comms)
-              if abort:
-                print("Found bad word in comments --- avoiding this")
-                break
+            new_usernames.remove(usname)
           except:
             pass
+        #except:
+          #print("error occurred with caption")
 
-          time.sleep(1)
-          session.rightArrow()
-          profiles_explored = profiles_explored +1
+        time.sleep(1)
+        web_nav.right_arrow(browser)
+        profiles_explored = profiles_explored + 1
 
-        #this line removes duplicates from the list so we don't go to the same username twice if they had two recent pics
-        new_usernames = list(set(new_usernames))
-        if session.email in new_usernames:
-          new_usernames.remove(session.email)
+      #this line removes duplicates from the list so we don't go to the same username twice if they had two recent pics
+      new_usernames = list(set(new_usernames))
+      if session.email in new_usernames:
+        new_usernames.remove(session.email)
 
-        #loop through each username that was extracted
-        for name in new_usernames:
+      #loop through each username that was extracted
+      for name in new_usernames:
+
+        #go to the profile, see how many pics it has loaded, see how many followers/following and calculate the ratio
+        print('username: {}'.format(name))
         
-          #check that we haven't already commented on this profile today by reference the stored username bank
-          if name in usernames:
-            print("Already commented and liked this profile today")
-            #if we have already engaged with this profile, skip it
-            continue
+        followers, following_num, f_ratio = retrieve.follower_to_following_ratio(browser, name)
+        print('Follower/following ratio: {} {} - {}'.format(followers, following_num, f_ratio))
 
-          #otherwise go to the profile, see how many pics it has loaded, see how many followers/following and calculate the ratio
-          session.goToProfile(name)
-          session.delay()
-          try:
-            followers = session.getFollowerCount()
-            following = session.getFollowingCount()
-          except NoSuchElementException:
-            session.browser.execute_script("location.reload()")
-            try:
-              followers = session.getFollowerCount()
-              following = session.getFollowingCount()
-            except NoSuchElementException:
-              print("this user has no followers")
-              following = 1
+        follow_stat = retrieve.follow_status()
+        follow_back = False
 
-          pics = session.getPicturesFromProfile()
-          print('number of pics: {}'.format(len(pics)))
-          
-          f_ratio = round(followers/following,3)
-          print('Follower/following ratio: {}'.format(f_ratio))
-
-          if f_ratio > config.follower_to_following_ratio_limit:
-            config.blacklist.append(name)
-
-          following = checkIfFollowing(session.browser)
+        validation = validation.validate_engagement(browser)
         
-          # click on the first pic of the profile
-          pics[0].click()
+        status = retrieve.follow_status()
+        if status == 'Follow Back':
+          follow_back = True
+          print('Status is follow back. Disengage!')
+          #continue
+        elif status == 'Following':
+          following = True
+        else:
+          following = False
 
-          #set the limit on how many pics to like. Max is 6 and if the profile has less than 6 pics we like them all
-          if len(pics) > config.max_likes:
-            pics_limit = config.max_likes
-          else:
-            pics_limit = len(pics)
+        old_usernames.append[name]
+        database_handler.add_data(config.db_path, name, (name, followers, following_num, f_ratio, follow_stat, today))
+
+        pics = session.getPicturesFromProfile()
+        # click on the first pic of the profile
+        pics[0].click()
+
+        #set the limit on how many pics to like. Max is 6 and if the profile has less than 6 pics we like them all
+        if len(pics) > 6:
+          pics_limit = 6
+        else:
+          pics_limit = len(pics)
         
-          pics_liked = 0
-          while pics_liked < pics_limit:
-            if pics_liked == 0 and following == False:
-              if session.already_commented_on():
-                print("Already commented on this pic, moving on...")
-                pics_liked = pics_limit
-                continue
-              else:  
-                try:
-                  newComment = session.createComment()
-                  session.sendComment(newComment)
-                  comments_posted = comments_posted + 1
-                except:
-                  print("Error occurred: unabled to post comment - Checking if comments are disabled")
-                  comment_status_disabled, msg  = session.is_commenting_disabled()
-                  print(msg)
-                  if comment_status_disabled:
-                    continue
+        pics_liked = 0
+        while pics_liked < pics_limit:
+          if pics_liked == 0 and following == False:
+            if session.already_commented_on():
+              print("Already commented on this pic, moving on...")
+              pics_liked = pics_limit
+              continue
+            elif session.check_for_hashtag_in_comments(tag) == False:
+              pics_liked += 1
+              continue
+            else:  
+              try:
+                newComment = session.createComment()
+                session.sendComment(newComment)
+                comments_posted = comments_posted + 1
+              except:
+                print("Error occurred: unabled to post comment - Checking if comments are disabled")
+                comment_status_disabled, msg  = session.is_commenting_disabled()
+                print(msg)
 
-
-            session.likePic()
-            web_nav.rightArrow()
-            pics_liked = pics_liked + 1
+          comments = comment_util.get_comments_on_post(browser)
+          mtype = retrieve.media_type(browser)
+          print(mtype)
+          session.likePic()
+          web_nav.right_arrow(browser)
+          pics_liked = pics_liked + 1
       
-        #add the usernames we commented on to the list of profiles engaged already
-        usernames.extend(new_usernames)
-        pause = random.randint(60*(config.delay_time - config.delay_variance),60*(config.delay_time + config.delay_variance))
+      #add the usernames we commented on to the list of profiles engaged already
+      usernames.extend(new_usernames)
+      pause = random.randint(60*(config.delay_time - config.delay_variance),60*(config.delay_time + config.delay_variance))
         
-        session.printStats()
-        print(usernames)
-        print("Configs blacklist \n {}".format(config.blacklist))
+      session.print_bot_stats()
+      print('Usernames engaged today: {}'.format(usernames))
+      #print("Excel blacklist \n {}".format(blacklist))
 
-        print("Pausing for {} minutes".format(int(pause/60)))
+      excel_writer.create_workbook(blacklist,'blacklist')
         
-        pause_with_progress(int(pause/60))
+      today = date.today()
+      todays_unames_already = excel_writer.get_usernames_list_with_details('usernames_' + str(today))
 
-    #print out stats of likes, comments, usernamees, etc. (will want to build this out more)
-    elif choice == 'S':
-      session.printStats()
-      print(usernames)
+      if comments_posted > config.max_comments_per_day or pics_liked > config.max_likes_per_day:
+        print("Posted {} comments and {} likes today".format(comments_posted, pics_liked))
+        comments_posted = 0
+        pics_liked = 0
+        break
 
-    #exit the browser if the user sends X
-    elif choice == 'X':
-      session.close()
-      print('Exiting...')
-      y = False
+      print('\n####################################')
+      print('####################################')
+      print("Pausing for {} minutes".format(int(pause/60)))
+      pause_with_progress(int(pause/60))
 
-if __name__ == '__main__':
- runBot()
+    session.goToProfile()
+    end_followers = session.getFollowerCount()
+
+    print("You have gained {} followers today!!!!".format(end_followers - start_followers))
+
+  #exit the browser if the user sends X
+  elif choice == 'X':
+    session.close()
+    print('Exiting...')
+    y = False
