@@ -1,6 +1,5 @@
 import os
 import sqlite3
-from sqlite3 import ProgrammingError
 import datetime
 
 # create sqlite connection and updates/deletes/gets
@@ -40,7 +39,6 @@ def create_database(address, name):
                 cursor,
                 [
                     "usernames",
-                    "blacklist",
                     "accountProgress",
                     "activityRecord"
                 ],
@@ -75,7 +73,11 @@ def select_usernames_for_date(address, date):
 
     return(names)
 
-def check_if_username_in_table(address, username, date_range):
+def select_username_from_table_where(address, returned_field, operation, field):
+    
+
+
+def select_username_from_table(address, username):
     date_range = list(map(str, date_range))
 
     conn = sqlite3.connect(address)
@@ -84,15 +86,14 @@ def check_if_username_in_table(address, username, date_range):
     cursor.execute("SELECT * FROM usernames WHERE username=:username", {"username":username})
     records = cursor.fetchall()
 
-    print(records)
+    return(records)
 
-    if records:
-        for r in records:
-            if r[6] in date_range:
-                return(True)
+    #if records:
+        #for r in records:
+            #if r[6] in date_range:
+                #return(True)
 
-    return(False)
-
+    #return(False)
 
 def create_tables(cursor, tables):
     if "usernames" in tables:
@@ -124,3 +125,22 @@ def add_data(address, table, data):
     cursor.execute(task, data)
 
     conn.commit()
+
+def update_username_record(address, username, data):
+
+    conn = sqlite3.connect(address)
+    cursor = conn.cursor()
+
+    task = "INSERT OR REPLACE INTO usernames(username, followers, following, f2f_ratio,status,cal_date) VALUES (?,?,?,?,?,?)"
+
+    cursor.execute(task, data)
+
+    conn.commit()
+    conn.close()
+
+def delete_username(address, username):
+
+    conn = sqlite3.connect(address)
+    cursor = conn.cursor
+
+    task = "DELETE from usernames WHERE username=:username"
