@@ -73,9 +73,33 @@ def select_usernames_for_date(address, date):
 
     return(names)
 
-def select_username_from_table_where(address, returned_field, operation, field):
-    
+def select_usernames_for_date_range(address, date_range):
+    date_range = list(map(str, date_range))
 
+    usernames = []
+
+    for date in date_range:
+        names = select_usernames_for_date(address, date)
+        usernames.append(names)
+
+    return(usernames)
+
+def select_blacklist_from_usernames(address, ratio_limit):
+    blacklist = []
+
+    conn = sqlite3.connect(address)
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT username FROM usernames WHERE f2f_ratio>:ratio_limit", {"ratio_limit":ratio_limit})
+
+    rows = cursor.fetchall()
+
+    for row in rows:
+        blacklist.append(row[0])
+
+    conn.close()
+
+    return(blacklist)
 
 def select_username_from_table(address, username):
     date_range = list(map(str, date_range))
@@ -83,17 +107,10 @@ def select_username_from_table(address, username):
     conn = sqlite3.connect(address)
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM usernames WHERE username=:username", {"username":username})
+    cursor.execute("SELECT username FROM usernames WHERE username=:username", {"username":username})
     records = cursor.fetchall()
 
     return(records)
-
-    #if records:
-        #for r in records:
-            #if r[6] in date_range:
-                #return(True)
-
-    #return(False)
 
 def create_tables(cursor, tables):
     if "usernames" in tables:
@@ -144,3 +161,4 @@ def delete_username(address, username):
     cursor = conn.cursor
 
     task = "DELETE from usernames WHERE username=:username"
+
