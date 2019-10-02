@@ -57,11 +57,8 @@ session.signIn()
 #this is primarily for reference to make sure it doesn't like and comment on the same profile in a day
 usernames = []
 hashtags_used = []
-comments_posted = 0
 
-y = True
-
-while y:
+while True:
   print("L - like pictures")
   print("R - Run the Bot")
   print("X - exit app")
@@ -75,7 +72,7 @@ while y:
     web_nav.go_to_feed(browser)
     liking.like_pic_in_feed(browser, num) #NEED TO CHANGE THIS
     session.likes += 1
-    
+
     print("Done liking pics")
 
   #run the main function of the bot
@@ -217,9 +214,11 @@ while y:
         pause_with_progress(int(pause/60))
 
     web_nav.go_to_profile(browser)
-    end_followers = retrieve.follower_count()
+    end_followers = retrieve.follower_count(browser)
+    following_num = retrieve.following_count(browser)
 
     print("You have gained {} followers today!!!!".format(end_followers - start_followers))
+    database_handler.add_data(config.DB_PATH, "accountProgress", (today, end_followers, following_num, round(end_followers/following_num, 3)))
 
   #exit the browser if the user sends X
   elif choice == 'X':
