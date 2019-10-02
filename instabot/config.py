@@ -1,6 +1,6 @@
 #configuration parameters for how the bot will run and what profiles/pics it will engage with
-USERNAME = 'two_wieners'
-PASSWORD = 'WEiner19!'
+USERNAME = ''
+PASSWORD = ''
 
 # Set the number of likes and comments you would like to perform for run of the bot 
 MAX_LIKES = 500
