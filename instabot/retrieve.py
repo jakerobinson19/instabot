@@ -71,6 +71,9 @@ def following_count(browser):
 def pics_from_profile(browser):
     return(browser.find_elements_by_xpath(read_xpath('get_pic','all_shown')))
 
+def pic_from_explore(browser, ptype):
+    return(browser.find_element_by_xpath(read_xpath('get_pic','recent')))
+
 def current_url(browser):
     """ Get URL of the loaded webpage """
     try:
@@ -121,9 +124,11 @@ def pic_caption(browser):
       print("No caption on this post")
       cap = None
     
-    cap = cap[0].text
+    if cap:
+      cap = cap[0].text
+      cap = cap.lower()
     
-    return(cap.lower())
+    return(cap)
 
 def datetime_of_post(browser):
     t = browser.find_element_by_xpath(read_xpath('post','timestamp')).get_attribute('datetime')
@@ -137,4 +142,3 @@ def media_type(browser):
         pass
 
     return(type)
-
