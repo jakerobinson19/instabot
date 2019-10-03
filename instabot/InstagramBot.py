@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 # import instabot modules
 from finder_function import read_xpath
 from finder_function import read_selector
+
 import config
  
 # import third party and built in ibraries
@@ -94,9 +95,13 @@ class instagramBot():
     self.likes += num
     self.total_likes += num
 
+  def increment_profiles_engaged_tally(self, num=1):
+    self.profiles_engaged += num
+  
   def reset_engagement_stats(self):
     self.comments = 0
     self.likes = 0
+    self.profiles_engaged = 0
 
   def generate_date_range(self):
     date_range = []
@@ -130,8 +135,14 @@ class instagramBot():
     print('\n--------Stats----------')
     print('Liked {} pictures over {} minutes for a rate of {} likes/hour'.format(self.total_likes, round(time/60,2), round((self.total_likes/time)*3600,2)))
     print('{} comments created'.format(self.total_comments))
+    print('{} profiles engaged'.format(self.profiles_engaged))
     print('\n####################################')
     print('####################################')
+
+  def print_username_lists(self):
+    print('Blacklist: {}'.format(self.blacklist))
+    print('Users To Ignore: {}'.format(self.ignore_users))
+    print('Ignore Post If They Contain: {}'.format(self.ignore_if_contains))
 
   def check_blacklist(self, name):
     
