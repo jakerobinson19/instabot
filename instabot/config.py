@@ -1,14 +1,17 @@
-#configuration parameters for how the bot will run and what profiles/pics it will engage with
+# Configuration parameters for how the bot will run and what profiles/pics it will engage with
+
+# Enter username and password of account here 
+# These can also be provided as arguments when running if desired
 USERNAME = ''
 PASSWORD = ''
 
 # Set the number of likes and comments you would like to perform for run of the bot 
-MAX_LIKES = 500
+MAX_LIKES = 300
 MAX_COMMENTS = 65
 
-#apparently 350 likes/hour is the limit
+# How many profiles to interact with per hashtag and how many pics to like for each profile
 PROFILES_PER_TAG = 5
-LIKES_PER_PROFILE = 3
+LIKES_PER_PROFILE = 4
 
 # Set number of hours you would like the bot to run for
 RUN_TIME = 6
@@ -30,28 +33,22 @@ FOLLOW_BACK = False
 FOLLOW_PER_DAY = 10
 FOLLOWER_TO_FOLLOWING_RATIO_LIMIT = 3
 
+# Words that will cause the bot to avoid the post or not comment/like if found in the caption
 BAD_WORDS = ['surgery','dead','rip','sad','death','tears','worst',
-			 'pain','danger','terrible','awful','memory','peace',
-			 'killed','urgent','notice', 'losing','long sleeve', 't-shirt',
-			 'international delivery', 'made in the usa','get it now','life threatening',
-			 'horrific','life-threat']
+	     'pain','danger','terrible','awful','memory','killed']
 
-HASHTAG_LIST = ['dachshund', 'dachshunds', 'dachshundsonly', 'dachshund_love',
-                'doxiesofig', 'doxiefever', 'dachshundgram', 'dachshundlife',
-                'dachshund_feature','dachshundnation','doxiesofig','sausagedogs',
-                'dachshundsarethebest','dachshundobsessed','doxies', 'dogoftheday',
-                'dachshundoftheday','dachshundmoments','fluffy','dogs',
-                'dachshundlovers','dogphotography','dachshundappreciation','wienerdog',
-                'wienerdogs','wienerdogworld','minisausagedog','weinerdogsofinstagram',
-                'minidoxie','doxiepuppy','miniaturedachshund','dachshund_corner',
-                'dachshundpuppy','dackel','doglover','petstagram','instadog','dogoftheday',
-                'dogsofinstagram']
+# List of hashtags to explore and engage with profiles from
+HASHTAG_LIST = []
 
-USERNAMES_TO_IGNORE = ['lovedachshund.mag', 'doxie.obsessed','dach_usa_love']
+# Profiles that you never wish to interact with
+USERNAMES_TO_IGNORE = []
 
-# database configuration
-DB_PATH = '/Users/jakerobinson/Desktop/instabot_db.sqlite'
+# Set to False if you would like to see the username lists printed out in the command line to verify things are functioning
+SUPPRESS_FULL_LOG = True
+
+# Database configuration
+DB_PATH = '/Users/Documents/instabot/instabot_db.sqlite'
 DB_NAME = 'instabot_db'
 
-# chromedriver path
+# Chromedriver path
 CHROMEDRIVER_PATH = '/usr/local/bin/chromedriver'
