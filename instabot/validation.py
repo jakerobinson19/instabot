@@ -78,10 +78,11 @@ def validate_caption(browser):
 
     abort = False
     
-    for word in config.BAD_WORDS:
-      if word in caption:
-        print("Bad word in the caption ({})".format(word))
-        abort = True
+    if caption:
+      for word in config.BAD_WORDS:
+        if word in caption:
+          print("Bad word in the caption ({})".format(word))
+          abort = True
 
     return(abort)
 
@@ -114,4 +115,4 @@ def check_for_hashtag_in_comments(comments, tag):
       if tag in c.text:
         return(True)
 
-    return(approved, msg)
+    return(approved)
