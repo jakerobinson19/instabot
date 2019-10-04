@@ -132,9 +132,9 @@ class instagramBot():
     print('####################################')
 
   def print_username_lists(self):
-    print('Blacklist: {}'.format(self.blacklist))
-    print('Users To Ignore: {}'.format(self.ignore_users))
-    print('Ignore Post If They Contain: {}'.format(self.ignore_if_contains))
+    print('\nBlacklist: {}'.format(self.blacklist))
+    print('\nUsers To Ignore: {}'.format(self.ignore_users))
+    print('\nIgnore Post If It Contains: {}'.format(self.ignore_if_contains))
 
   def check_list_for_name(self, container, name):
 
