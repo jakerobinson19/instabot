@@ -115,14 +115,6 @@ class instagramBot():
 
     return(date_range)
 
-  def unfollow_user(self, user):
-    self.goToProfile(user)
-    follow_button = self.browser.find_element_by_xpath(read_xpath('status','following'))
-    follow_button.click()
-
-    confirm = confirm = self.browser.find_element_by_xpath(read_xpath('status','unfollow'))
-    confirm.click()
-
   def get_time_delta(self):
     time_now = datetime.datetime.now()
     t_delta = time_now - self.start_time
@@ -143,22 +135,6 @@ class instagramBot():
     print('Blacklist: {}'.format(self.blacklist))
     print('Users To Ignore: {}'.format(self.ignore_users))
     print('Ignore Post If They Contain: {}'.format(self.ignore_if_contains))
-
-  def check_blacklist(self, name):
-    
-    for item in self.blacklist:
-      if name in item:
-        return(True)
-        
-    return(False)
-
-  def check_ignore_users(self, name):
-
-    for item in self.ignore_users:
-      if name in item:
-        return(True)
-
-    return(False)
 
   def check_list_for_name(self, container, name):
 
