@@ -143,6 +143,7 @@ def run_bot(username, password, max_comments, max_likes):
             continue
 
           database_handler.add_data(config.DB_PATH, "usernames", (name, followers, following_num, f_ratio, follow_stat, today))
+          session.increment_profiles_engaged_tally()
 
           pics = retrieve.pics_from_profile(web_browser)
           # click on the first pic of the profile
@@ -183,7 +184,6 @@ def run_bot(username, password, max_comments, max_likes):
               liking.like_pic(web_browser)
               session.increment_like_tally()
 
-            session.increment_profiles_engaged_tally()
             web_nav.right_arrow(web_browser)
             pics_liked = pics_liked + 1
       
@@ -191,9 +191,9 @@ def run_bot(username, password, max_comments, max_likes):
         old_usernames.extend(new_usernames)
         usernames.extend(new_usernames)
         session.print_bot_stats()
-        print('Usernames engaged today: {}'.format(usernames))
 
         if not config.SUPPRESS_FULL_LOG:
+          print('Usernames engaged today: {}'.format(usernames))
           session.print_username_lists()
 
         if session.comments > max_comments or session.likes > max_likes:
@@ -217,4 +217,4 @@ def run_bot(username, password, max_comments, max_likes):
     elif choice == 'X':
       browser.close()
       print('Exiting...')
-      y = False
+      break
