@@ -81,7 +81,6 @@ def validate_caption(browser):
     if caption:
       for word in config.BAD_WORDS:
         if word in caption:
-          print("Bad word in the caption ({})".format(word))
           abort = True
 
     return(abort)
@@ -111,8 +110,9 @@ def already_commented_on(browser):
 def check_for_hashtag_in_comments(comments, tag):
     approved = False
 
-    for c in comments:
-      if tag in c.text:
-        return(True)
+    if comments:
+      for c in comments:
+        if tag in c.text:
+          return(True)
 
     return(approved)
