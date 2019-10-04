@@ -33,12 +33,18 @@ FOLLOW_BACK = False
 FOLLOW_PER_DAY = 10
 FOLLOWER_TO_FOLLOWING_RATIO_LIMIT = 3
 
+WORD_OPTIONS = [['Wow, ','So','Absolutely',"Holy fluff. You're", 'Awwww', "By our fluffy paws! You're ", 'Absocutely'],
+               ['so cute','adorable','lovely','so sweet','so so adorable','fabulous'],
+               ['! ','!! ','!!! ']]
+
+EMOJI_OPTIONS = ['❤️', '❤️🥰❤️', '❤️❤️❤️', '💕💕💕', '🔥', '🔥🔥' ,'😍', '😍😍', '😍🥰', '🥰💕']
+
 # Words that will cause the bot to avoid the post or not comment/like if found in the caption
 BAD_WORDS = ['surgery','dead','rip','sad','death','tears','worst',
 	     'pain','danger','terrible','awful','memory','killed']
 
 # List of hashtags to explore and engage with profiles from
-HASHTAG_LIST = []
+HASHTAG_LIST = ['dog', 'cat']
 
 # Profiles that you never wish to interact with
 USERNAMES_TO_IGNORE = []
@@ -47,7 +53,7 @@ USERNAMES_TO_IGNORE = []
 SUPPRESS_FULL_LOG = True
 
 # Database configuration
-DB_PATH = '/Users/Documents/instabot/instabot_db.sqlite'
+DB_PATH = '/Users/new_bot/instabot/instabot/instabot_db.sqlite'
 DB_NAME = 'instabot_db'
 
 # Chromedriver path

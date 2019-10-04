@@ -7,9 +7,9 @@ import config
 web = {}
 
 web['url'] = {
-	'login':'https://www.instagram.com/accounts/login/',
-	'feed': 'https://www.instagram.com/',
-	'hashtag':'https://www.instagram.com/explore/tags/'
+    'login':'https://www.instagram.com/accounts/login/',
+    'feed': 'https://www.instagram.com/',
+    'hashtag':'https://www.instagram.com/explore/tags/'
 }
 
 def right_arrow(browser):
@@ -21,7 +21,7 @@ def left_arrow(browser):
     body.send_keys(Keys.ARROW_LEFT)
 
 def go_to_url(browser, page):
-	browser.get(page)
+    browser.get(page)
 
 def go_to_feed(browser):
     browser.get(web['url']['feed'])
@@ -37,4 +37,3 @@ def go_to_hashtag(browser, hashtag):
 def select_pic_on_explore_page(browser, ptype):
     pic = retrieve.pic_from_explore(browser, ptype)
     pic.click()
-  

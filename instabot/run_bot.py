@@ -1,17 +1,17 @@
 # instabot libraries
 from InstagramBot import instagramBot
-from comment_util import create_comment
-from comment_util import send_comment
+from comment_functions import create_comment
+from comment_functions import send_comment
+from comment_functions import is_commenting_disabled
 from time_functions import time_delay
 from time_functions import pause_with_progress
 from validation import *
+import comment_functions
 import browser
 import web_nav
 import retrieve
 import liking
-import comment_util
 import database_handler
-import excel_writer
 import config
 
 # import third party and built in ibraries
@@ -70,7 +70,14 @@ def run_bot(username, password, max_comments, max_likes):
     # then goes to the most recent pictures and extracts the usernames
     # then goes to each username, comments on their latest pic and likes some of their pics
     elif choice == 'R':
-      web_nav.go_to_profile(web_browser)
+
+      stop, msg = validate_config_parameters()
+
+      if stop:
+        print(msg)
+        break
+
+      web_nav.go_to_profile(web_browser, username)
       start_followers = retrieve.follower_count(web_browser)
       print('Today you started with {} followers'.format(start_followers))
 
@@ -80,7 +87,7 @@ def run_bot(username, password, max_comments, max_likes):
         while not_visited:
         # select random hashtag from list using random moddule
           tag = config.HASHTAG_LIST[random.randint(0,len(config.HASHTAG_LIST)-1)]
-        
+
           if tag not in hashtags_used:
             hashtags_used.append(tag)
             not_visited = False
@@ -138,11 +145,12 @@ def run_bot(username, password, max_comments, max_likes):
 
           disengage, cant_comment, cant_like, msg = validate_profile(web_browser, follow_stat)
 
+          database_handler.add_data(config.DB_PATH, "usernames", (name, followers, following_num, f_ratio, follow_stat, today))
+          
           if disengage:
             print(msg)
             continue
 
-          database_handler.add_data(config.DB_PATH, "usernames", (name, followers, following_num, f_ratio, follow_stat, today))
           session.increment_profiles_engaged_tally()
 
           pics = retrieve.pics_from_profile(web_browser)
@@ -171,14 +179,14 @@ def run_bot(username, password, max_comments, max_likes):
               else:
 
                 try:
-                  comment_util.send_comment(web_browser)
+                  send_comment(web_browser)
                   session.increment_comment_tally()
               
                 except:
-                  print("Error occurred: unabled to post comment - Checking if comments are disabled")
-                  comment_status_disabled, msg  = comment_util.is_commenting_disabled()
-
-            comments = comment_util.get_comments_on_post(web_browser)
+                  comment_status_disabled, msg  = is_commenting_disabled(browser)
+                  
+                  if comment_status_disabled:
+                    print(msg)
 
             if liking_allowed and not cant_like:
               liking.like_pic(web_browser)

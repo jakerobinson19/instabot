@@ -24,10 +24,10 @@ usage: instabot.py [-h] [-u username] [-p password] [-l likes] [-c comments]
 
 # Parse arguments from command line
 parser = argparse.ArgumentParser(description='Automated Bot for Instagram using Python and Selenium')
-parser.add_argument('-u', '--username', metavar='USERNAME', type=str, default = config.USERNAME, help='Instagram username handle', dest='username')
-parser.add_argument('-p', '--password', metavar='PASSWORD', type=str, default = config.PASSWORD, help='Password for Instagram account', dest='password')
-parser.add_argument('-l', '--likes', metavar='LIKES', type=int, default=config.MAX_LIKES, help='Number of Likes you want the bot to perform', dest='max_likes')
-parser.add_argument('-c', '--comments', metavar='COMMENTS', type=int, default=config.MAX_COMMENTS, help='Number of Comments you want the bot to perform', dest='max_comments')
+parser.add_argument('-u', '--username', metavar='username', type=str, default = config.USERNAME, help='Instagram username handle', dest='username')
+parser.add_argument('-p', '--password', metavar='password', type=str, default = config.PASSWORD, help='Password for Instagram account', dest='password')
+parser.add_argument('-l', '--likes', metavar='likes', type=int, default=config.MAX_LIKES, help='Number of Likes you want the bot to perform', dest='max_likes')
+parser.add_argument('-c', '--comments', metavar='comments', type=int, default=config.MAX_COMMENTS, help='Number of Comments you want the bot to perform', dest='max_comments')
 
 args = parser.parse_args()
 
@@ -36,10 +36,12 @@ try:
 
 except ElementClickInterceptedException:
   
-    print (" It appears that the bot has been blocked :( ")
+    print ("\n\n It appears that the bot has been blocked :( ")
     print (" Please check that you're configuration parameters are reasonable")
     print (" We will pause until further notice")
   
 except KeyboardInterrupt:
     
-    print("Exiting. Goodbye :)")
+    print("\n\n ####################")
+    print(" Exiting. Goodbye :)")
+

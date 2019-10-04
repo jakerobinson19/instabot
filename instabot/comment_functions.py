@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-
-#!/usr/bin/env python
 from selenium.webdriver.support import expected_conditions as EC 
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -8,22 +6,20 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 
+from config import WORD_OPTIONS
+from config import EMOJI_OPTIONS
+
 from finder_function import read_xpath
 from finder_function import read_selector
 
 import time
 import random
-
-word_options = [['Wow, ','So','Absolutely',"Holy fluff. You're", 'Awwww', "By our fluffy paws! You're ", 'Absocutely'],
-               ['so cute','adorable','lovely','so sweet','so so adorable','fabulous'],
-               ['! ','!! ','!!! ']]
-emoji_options = ['❤️', '❤️🥰❤️', '❤️❤️❤️', '💕💕💕', '🔥', '🔥🔥' ,'😍', '😍😍', '😍🥰', '🥰💕']
   
 def create_comment():
-  firstWord = word_options[0][random.randint(0,len(word_options[0])-1)]
-  secondWord = word_options[1][random.randint(0,len(word_options[1])-1)]
-  punctuation = word_options[2][random.randint(0,len(word_options[2])-1)]
-  emoji = emoji_options[random.randint(0,len(emoji_options)-1)]
+  firstWord = WORD_OPTIONS[0][random.randint(0,len(WORD_OPTIONS[0])-1)]
+  secondWord = WORD_OPTIONS[1][random.randint(0,len(WORD_OPTIONS[1])-1)]
+  punctuation = WORD_OPTIONS[2][random.randint(0,len(WORD_OPTIONS[2])-1)]
+  emoji = EMOJI_OPTIONS[random.randint(0,len(EMOJI_OPTIONS)-1)]
   
   comment = firstWord + ' ' + secondWord + punctuation + emoji + ' '
 

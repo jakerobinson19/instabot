@@ -2,7 +2,21 @@
 
 import config
 import retrieve
-import comment_util
+import comment_functions
+
+def validate_config_parameters():
+  stop_bot = False
+  msg = ''
+
+  if len(config.HASHTAG_LIST) == 0:
+    msg = 'No hashtags have been input for the bot to explore. Please add them to the HASHTAG_LIST in config.py'
+    stop_bot = True
+
+  elif len(config.WORD_OPTIONS) == 0:
+    msg = ('No words have been input for the bot to comment with. Please add them to the WORD_OPTIONS in config.py')
+    stop_bot = True
+
+  return(stop_bot, msg)
 
 def validate_username(usname, blacklist, old_usernames):
 
@@ -47,7 +61,7 @@ def validate_engagement(browser, tag):
 
   media_type = retrieve.media_type(browser)
   caption_check = validate_caption(browser)
-  comments = comment_util.get_comments_on_post(browser)
+  comments = comment_functions.get_comments_on_post(browser)
   
   if not check_for_hashtag_in_comments(comments, tag):
     comment_allowed = False
@@ -99,7 +113,7 @@ def already_liked(element):
 def already_commented_on(browser):
     already_commented = False
 
-    comms = comment_util.get_comments_on_post(browser)
+    comms = comment_functions.get_comments_on_post(browser)
     
     for c in comms:
       if c.text == config.USERNAME:
