@@ -104,7 +104,7 @@ def already_liked(element):
 
     try:
       heart_button = retrieve.heart_outline(element)
-    except NoSuchElementException:
+    except:
       print('Picture already liked, moving on...')
       not_liked = False
 
