@@ -18,7 +18,7 @@ SQL_CREATE_ACCOUNT_PROGRESS_TABLE = """
         `cal_date` DATETIME NOT NULL,
         `followers` INTEGER NOT NULL,
         `following` INTEGER NOT NULL,
-        `f2f ratio` FLOAT);"""
+        `f2f_ratio` FLOAT);"""
 
 SQL_CREATE_ACTIVITY_RECORD_TABLE = """
     CREATE TABLE IF NOT EXISTS 'activityRecord' (
