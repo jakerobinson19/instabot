@@ -18,7 +18,7 @@ SQL_CREATE_ACCOUNT_PROGRESS_TABLE = """
         `cal_date` DATETIME NOT NULL,
         `followers` INTEGER NOT NULL,
         `following` INTEGER NOT NULL,
-        `f2f ratio` FLOAT);"""
+        `f2f_ratio` FLOAT);"""
 
 SQL_CREATE_ACTIVITY_RECORD_TABLE = """
     CREATE TABLE IF NOT EXISTS 'activityRecord' (
@@ -80,7 +80,7 @@ def select_usernames_for_date_range(address, date_range):
 
     for date in date_range:
         names = select_usernames_for_date(address, date)
-        usernames.append(names)
+        usernames.extend(names)
 
     return(usernames)
 
@@ -116,7 +116,7 @@ def create_tables(cursor, tables):
     if "usernames" in tables:
         cursor.execute(SQL_CREATE_USERNAMES_TABLE)
 
-    if "recordActivity" in tables:
+    if "activityRecord" in tables:
         cursor.execute(SQL_CREATE_ACTIVITY_RECORD_TABLE)
 
     if "accountProgress" in tables:

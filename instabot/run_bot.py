@@ -205,6 +205,7 @@ def run_bot(username, password, max_comments, max_likes):
           session.print_username_lists()
 
         if session.comments > max_comments or session.likes > max_likes:
+          database_handler.add_data(config.DB_PATH, "activityRecord", (today, session.get_time_delta(), session.profiles_engaged, session.comments, session.likes))
           session.reset_engagement_stats()
           break
 
@@ -220,9 +221,9 @@ def run_bot(username, password, max_comments, max_likes):
 
       print("You have gained {} followers today!!!!".format(end_followers - start_followers))
       database_handler.add_data(config.DB_PATH, "accountProgress", (today, end_followers, following_num, round(end_followers/following_num, 3)))
-
+   
     # exit the browser if the user sends X
     elif choice == 'X':
-      browser.close()
+      browser.close(web_browser)
       print('Exiting...')
       break

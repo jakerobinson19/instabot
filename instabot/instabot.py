@@ -43,5 +43,5 @@ except ElementClickInterceptedException:
 except KeyboardInterrupt:
     
     print("\n\n ####################")
-    print(" Exiting. Goodbye :)")
+    print(" Exiting. Goodbye :)\n")
 

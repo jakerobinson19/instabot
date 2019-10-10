@@ -118,7 +118,7 @@ class instagramBot():
   def get_time_delta(self):
     time_now = datetime.datetime.now()
     t_delta = time_now - self.start_time
-    t_delta_in_mins = round(t_delta/datetime.timedelta(minutes=1)*60,2)
+    t_delta_in_mins = round(t_delta/datetime.timedelta(minutes=1),2)
     return(t_delta_in_mins)
 
   def print_bot_stats(self):
