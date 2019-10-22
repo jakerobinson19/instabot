@@ -4,9 +4,6 @@ import argparse
 import config
 from run_bot import run_bot
 
-# Selenium exception used when the bot is blocked
-from selenium.common.exceptions import ElementClickInterceptedException
-
 '''
 File call to initiate run of the bot
 
@@ -32,16 +29,9 @@ parser.add_argument('-c', '--comments', metavar='comments', type=int, default=co
 args = parser.parse_args()
 
 try:
-  run_bot(args.username, args.password, args.max_comments, args.max_likes)
+  	run_bot(args.username, args.password, args.max_comments, args.max_likes)
 
-except ElementClickInterceptedException:
-  
-    print ("\n\n It appears that the bot has been blocked :( ")
-    print (" Please check that you're configuration parameters are reasonable")
-    print (" We will pause until further notice")
-  
-except KeyboardInterrupt:
-    
-    print("\n\n ####################")
-    print(" Exiting. Goodbye :)\n")
+except Exception as e:
+
+	print(" Unexpected Exception occurred: {}")
 

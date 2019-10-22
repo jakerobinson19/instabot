@@ -20,6 +20,10 @@ def validate_config_parameters():
 
 def validate_username(usname, blacklist, old_usernames):
 
+    if not usname:
+      msg = "----- Username does not exist -----"
+      return(False, msg)
+      
     if usname == config.USERNAME:
       msg = "----- This is your username -----"
       return(False, msg)
