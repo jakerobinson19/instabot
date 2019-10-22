@@ -31,6 +31,12 @@ Otherwise, here are links to the most popular drivers.
 
 Note: to see the version of the browser you have go to Settings>About Chrome or Menu>Help>About FireFox
 
+### Bot Data
+
+The bot will save the data of the users it engages and log the stats of your followers and following counts as well as the data for each run of the bot (profiles engaged, comments posted, pictures liked, and total time elapsed). This data is stored locally in a sqlite file. The path and name of the file are configurable in the config.py file.
+
+An easy way to view the contents of the sqlite file, if you are not familiar, is to upload it to the site below:
+http://sqliteviewer.flowsoft7.com/
 
 
 
