@@ -179,7 +179,7 @@ def run_bot(username, password, max_comments, max_likes):
                 else:
 
                   try:
-                    comment_util.send_comment(web_browser)
+                    send_comment(web_browser)
                     session.increment_comment_tally()
               
                   except:
