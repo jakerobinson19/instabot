@@ -15,7 +15,6 @@ LIKES_PER_PROFILE = 4
 
 # Set number of hours you would like the bot to run for
 RUN_TIME = 6
-
 delay_time = 30
 delay_variance = 25
 
@@ -29,8 +28,7 @@ LIKE_PICS = True
 
 DAYS_TO_REFRESH_USERNAMES = 13
 
-FOLLOW_BACK = False
-FOLLOW_PER_DAY = 10
+# Any profile above this limit will be added to the blacklist and not engaged with
 FOLLOWER_TO_FOLLOWING_RATIO_LIMIT = 3
 
 WORD_OPTIONS = [['Wow, ','So','Absolutely',"Holy fluff. You're", 'Awwww', "By our fluffy paws! You're ", 'Absocutely'],
