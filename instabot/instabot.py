@@ -33,5 +33,7 @@ try:
 
 except Exception as e:
 
-	print(" Unexpected Exception occurred: {}")
-
+	print(" Unexpected Exception occurred: {}".format(e))
+	
+	if 'ChromeDriver' in e:
+		print("Please update chromedriver by downloading the appropriate version at https://sites.google.com/a/chromium.org/chromedriver/")
