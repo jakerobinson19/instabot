@@ -16,8 +16,9 @@ import sys
 
 class instagramBot():
   
-  def __init__(self, browser, email, password):
+  def __init__(self, browser, email, password, headless):
     self.browser = browser
+    self.headless = headless
     
     self.email = email
     self.password = password
@@ -64,7 +65,8 @@ class instagramBot():
       self.notnow = self.browser.find_element_by_xpath(read_xpath('notification_wall','not_now'))
       self.notnow.click()
     except:
-      print("Could not locate notifications window. Perhaps a Suspicious Login was Detected")
+      if not self.headless:
+        print("Could not locate notifications window. Perhaps a Suspicious Login was Detected")
     
     time.sleep(2)
     #self.browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
