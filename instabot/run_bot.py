@@ -2,16 +2,16 @@
 from InstagramBot import instagramBot
 from comment_functions import create_comment
 from comment_functions import send_comment
-from comment_functions import is_commenting_disabled
 from time_functions import time_delay
 from time_functions import pause_with_progress
 from validation import *
-import comment_functions
 import browser
 import web_nav
 import retrieve
 import liking
+import comment_functions
 import database_handler
+import excel_writer
 import config
 
 # Selenium exception for if you get blocked
@@ -25,7 +25,9 @@ import random
 import time
 import sys
 
-def run_bot(username, password, max_comments, max_likes):
+from selenium.common.exceptions import ElementClickInterceptedException
+
+def run_bot(username, password, max_comments, max_likes, headless):
 
   today = datetime.date.today()
   date_range = [(today - datetime.timedelta(days=i)) for i in range(config.DAYS_TO_REFRESH_USERNAMES, -1, -1)]
@@ -36,9 +38,9 @@ def run_bot(username, password, max_comments, max_likes):
 
   old_usernames = database_handler.select_usernames_for_date_range(config.DB_PATH, date_range)
 
-  web_browser = browser.init_driver(config.CHROMEDRIVER_PATH)
+  web_browser = browser.init_driver(config.CHROMEDRIVER_PATH, headless)
   #create the session by initializing the instagramBot object instance using the provided username and password
-  session = instagramBot(web_browser, username, password)
+  session = instagramBot(web_browser, username, password, headless)
   time_delay()
   session.set_blacklist(blacklist)
   session.set_ignore_users(old_usernames)
@@ -77,7 +79,7 @@ def run_bot(username, password, max_comments, max_likes):
     # then goes to each username, comments on their latest pic and likes some of their pics
     elif choice == 'R':
       try: 
-        web_nav.go_to_profile(web_browser, username)
+        web_nav.go_to_profile(web_browser)
         start_followers = retrieve.follower_count(web_browser)
         print('Today you started with {} followers'.format(start_followers))
 
@@ -140,9 +142,12 @@ def run_bot(username, password, max_comments, max_likes):
             print('username: {}'.format(name))
         
             followers, following_num, f_ratio = retrieve.follower_to_following_ratio(web_browser, name)
-            print('Follower/following ratio: {} {} - {}'.format(followers, following_num, f_ratio))
             follow_stat = retrieve.follow_status(web_browser)
 
+            if headless:
+              print('Follower/following ratio: {} {} - {}'.format(followers, following_num, f_ratio))
+              print('Following status: {}'.format(follow_stat))
+              
             disengage, cant_comment, cant_like, msg = validate_profile(web_browser, follow_stat)
 
             database_handler.add_data(config.DB_PATH, "usernames", (name, followers, following_num, f_ratio, follow_stat, today))
@@ -179,11 +184,13 @@ def run_bot(username, password, max_comments, max_likes):
                 else:
 
                   try:
-                    send_comment(web_browser)
+                    send_comment(web_browser, headless)
                     session.increment_comment_tally()
+                    if headless:
+                      print("Send Comment: {}".format())
               
                   except:
-                    comment_status_disabled, msg  = comment_util.is_commenting_disabled(browser)
+                    comment_status_disabled, msg  = comment_functions.is_commenting_disabled(browser)
                   
                     if comment_status_disabled:
                       print(msg)
@@ -229,17 +236,18 @@ def run_bot(username, password, max_comments, max_likes):
 
       except Exception as e:
 
-        print(" Unexpected exception error occurred: {}".format(e))
+        print(" Unexpected exception error occurred in run_bot: {}".format(e))
+        continue 
 
       finally:
 
-        web_nav.go_to_profile(web_browser, username)
+        web_nav.go_to_profile(web_browser)
         end_followers = retrieve.follower_count(web_browser)
         following_num = retrieve.following_count(web_browser)
 
         print("You have gained {} followers today!!!!".format(end_followers - start_followers))
         database_handler.add_data(config.DB_PATH, "accountProgress", (today, end_followers, following_num, round(end_followers/following_num, 3)))
-    
+
     # exit the browser if the user sends X
     elif choice == 'X':
       browser.close(web_browser)
