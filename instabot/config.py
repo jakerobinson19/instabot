@@ -31,11 +31,10 @@ DAYS_TO_REFRESH_USERNAMES = 13
 # Any profile above this limit will be added to the blacklist and not engaged with
 FOLLOWER_TO_FOLLOWING_RATIO_LIMIT = 3
 
-WORD_OPTIONS = [['Wow, ','So','Absolutely',"Holy fluff. You're", 'Awwww', "By our fluffy paws! You're ", 'Absocutely'],
+WORD_OPTIONS = [['Wow, ','So ','Absolutely ',"Oh my. You're ", 'Awwww ', "By our fluffy paws! You're "],
                ['so cute','adorable','lovely','so sweet','so so adorable','fabulous'],
-               ['! ','!! ','!!! ']]
-
-EMOJI_OPTIONS = ['❤️', '❤️🥰❤️', '❤️❤️❤️', '💕💕💕', '🔥', '🔥🔥' ,'😍', '😍😍', '😍🥰', '🥰💕']
+               ['! ','!! ','!!! '],
+	       ['❤️', '❤️🥰❤️', '❤️❤️❤️', '💕💕💕', '🔥', '🔥🔥' ,'😍', '😍😍', '😍🥰', '🥰💕']]
 
 # Words that will cause the bot to avoid the post or not comment/like if found in the caption
 BAD_WORDS = ['surgery','dead','rip','sad','death','tears','worst',
