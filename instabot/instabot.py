@@ -16,7 +16,7 @@ Options:
 -l max pics to like
 -c max comments to post
 
-usage: instabot.py [-h] [-u username] [-p password] [-l likes] [-c comments]
+usage: instabot.py [-h] [-u username] [-p password] [-l likes] [-c comments] [-s headless]
 '''
 
 # Parse arguments from command line
@@ -25,15 +25,13 @@ parser.add_argument('-u', '--username', metavar='username', type=str, default = 
 parser.add_argument('-p', '--password', metavar='password', type=str, default = config.PASSWORD, help='Password for Instagram account', dest='password')
 parser.add_argument('-l', '--likes', metavar='likes', type=int, default=config.MAX_LIKES, help='Number of Likes you want the bot to perform', dest='max_likes')
 parser.add_argument('-c', '--comments', metavar='comments', type=int, default=config.MAX_COMMENTS, help='Number of Comments you want the bot to perform', dest='max_comments')
+parser.add_argument('-s', '--headless', metavar='headless', type=bool, default=False, help='Run using a headless browser', dest='headless')
 
 args = parser.parse_args()
 
 try:
-  	run_bot(args.username, args.password, args.max_comments, args.max_likes)
+  	run_bot(args.username, args.password, args.max_comments, args.max_likes, args.headless)
 
 except Exception as e:
-
+	traceback.print_exc()
 	print(" Unexpected Exception occurred: {}".format(e))
-	
-	if 'ChromeDriver' in e:
-		print("Please update chromedriver by downloading the appropriate version at https://sites.google.com/a/chromium.org/chromedriver/")
