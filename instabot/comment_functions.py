@@ -16,12 +16,16 @@ import time
 import random
   
 def create_comment():
-  firstWord = WORD_OPTIONS[0][random.randint(0,len(WORD_OPTIONS[0])-1)]
-  secondWord = WORD_OPTIONS[1][random.randint(0,len(WORD_OPTIONS[1])-1)]
-  punctuation = WORD_OPTIONS[2][random.randint(0,len(WORD_OPTIONS[2])-1)]
-  emoji = EMOJI_OPTIONS[random.randint(0,len(EMOJI_OPTIONS)-1)]
+  comment = None
   
-  comment = firstWord + ' ' + secondWord + punctuation + emoji + ' '
+  for index in range(len(WORD_OPTIONS)):
+    word = WORD_OPTIONS[index][random.randint(0,len(WORD_OPTIONS[index])-1)]
+    
+    if comment is None:
+      comment = word
+    
+    else:
+      comment = comment + word
 
   return(comment)
 
