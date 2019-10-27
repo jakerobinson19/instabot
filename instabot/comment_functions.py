@@ -7,7 +7,6 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 
 from config import WORD_OPTIONS
-from config import EMOJI_OPTIONS
 
 from finder_function import read_xpath
 from finder_function import read_selector
