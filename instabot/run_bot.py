@@ -11,7 +11,6 @@ import retrieve
 import liking
 import comment_functions
 import database_handler
-import excel_writer
 import config
 
 # Selenium exception for if you get blocked
