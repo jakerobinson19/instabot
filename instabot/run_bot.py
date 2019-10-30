@@ -147,7 +147,7 @@ def run_bot(username, password, max_comments, max_likes, headless):
             if headless:
               print('Follower/following ratio: {} {} - {}'.format(followers, following_num, f_ratio))
               print('Following status: {}'.format(follow_stat))
-              
+
             disengage, cant_comment, cant_like, msg = validate_profile(web_browser, follow_stat)
 
             database_handler.add_data(config.DB_PATH, "usernames", (name, followers, following_num, f_ratio, follow_stat, today))
@@ -211,7 +211,7 @@ def run_bot(username, password, max_comments, max_likes, headless):
             print('Usernames engaged today: {}'.format(usernames))
             session.print_username_lists()
 
-          if session.comments > max_comments or session.likes > max_likes:
+          if session.comments >= max_comments or session.likes >= max_likes:
             database_handler.add_data(config.DB_PATH, "activityRecord", (today, session.get_time_delta(), session.profiles_engaged, session.comments, session.likes))
             session.reset_engagement_stats()
             break
@@ -247,7 +247,8 @@ def run_bot(username, password, max_comments, max_likes, headless):
 
         print("You have gained {} followers today!!!!".format(end_followers - start_followers))
         database_handler.add_data(config.DB_PATH, "accountProgress", (today, end_followers, following_num, round(end_followers/following_num, 3)))
-
+        database_handler.add_data(config.DB_PATH, "activityRecord", (today, session.get_time_delta(), session.profiles_engaged, session.comments, session.likes))
+        
     # exit the browser if the user sends X
     elif choice == 'X':
       browser.close(web_browser)
