@@ -19,7 +19,7 @@ class instagramBot():
   def __init__(self, browser, email, password, headless):
     self.browser = browser
     self.headless = headless
-    
+
     self.email = email
     self.password = password
     self.likes = 0
@@ -127,7 +127,7 @@ class instagramBot():
     time = self.get_time_delta()
 
     print('\n--------Stats----------')
-    print('Liked {} pictures over {} minutes for a rate of {} likes/hour'.format(self.total_likes, round(time/60,2), round((self.total_likes/time)*3600,2)))
+    print('Liked {} pictures over {} minutes for a rate of {} likes/hour'.format(self.total_likes, round(time,2), round((self.total_likes/time)*60,2)))
     print('{} comments created'.format(self.total_comments))
     print('{} profiles engaged'.format(self.profiles_engaged))
     print('\n####################################')

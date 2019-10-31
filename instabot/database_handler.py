@@ -132,7 +132,7 @@ def add_data(address, table, data):
             task = "INSERT INTO usernames(username,followers,following,f2f_ratio,status,cal_date) VALUES (?,?,?,?,?,?)"
 
         elif table == 'accountProgress':
-            task = "INSERT INTO accountProgress(cal_date,followers,following,f2f_ratio) VALUES (?,?,?,?)"
+            task = "INSERT OR REPLACE INTO accountProgress(cal_date,followers,following,f2f_ratio) VALUES (?,?,?,?)"
 
         elif table == 'activityRecord':
             task = "INSERT INTO activityRecord(cal_date,time_elapsed,profiles_engaged,comments,likes) VALUES (?,?,?,?,?)"

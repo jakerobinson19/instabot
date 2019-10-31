@@ -15,6 +15,7 @@ Options:
 -p password
 -l max pics to like
 -c max comments to post
+-s use a headless Chrome browser
 
 usage: instabot.py [-h] [-u username] [-p password] [-l likes] [-c comments] [-s headless]
 '''
@@ -33,5 +34,5 @@ try:
   	run_bot(args.username, args.password, args.max_comments, args.max_likes, args.headless)
 
 except Exception as e:
-	traceback.print_exc()
+	
 	print(" Unexpected Exception occurred: {}".format(e))

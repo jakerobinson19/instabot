@@ -1,29 +1,13 @@
-#!/usr/bin/env python
-
 import config
 import retrieve
 import comment_functions
-
-def validate_config_parameters():
-  stop_bot = False
-  msg = ''
-
-  if len(config.HASHTAG_LIST) == 0:
-    msg = 'No hashtags have been input for the bot to explore. Please add them to the HASHTAG_LIST in config.py'
-    stop_bot = True
-
-  elif len(config.WORD_OPTIONS) == 0:
-    msg = ('No words have been input for the bot to comment with. Please add them to the WORD_OPTIONS in config.py')
-    stop_bot = True
-
-  return(stop_bot, msg)
 
 def validate_username(usname, blacklist, old_usernames):
 
     if not usname:
       msg = "----- Username does not exist -----"
       return(False, msg)
-      
+
     if usname == config.USERNAME:
       msg = "----- This is your username -----"
       return(False, msg)
@@ -73,7 +57,7 @@ def validate_engagement(browser, tag):
   if caption_check:
     comment_allowed = False
 
-  if media_type == 'mp4':
+  if media_type == 'video/mp4':
       
     if not config.COMMENT_ON_VIDEOS:
       comment_allowed = False

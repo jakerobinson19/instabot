@@ -11,7 +11,7 @@ def pause_with_progress(t):
     sys.stdout.flush()
     time.sleep(60)
 
-def time_delay(low=2, high=5):
+def time_delay(low=3, high=7):
     sec = round(random.uniform(low,high), 3)
     sys.stdout.write("Pausing for " + str(sec) + " seconds")
     t = 0
@@ -28,7 +28,7 @@ def get_time_delta(start_time):
     time_now = datetime.datetime.now()
 
     t_delta = time_now - start_time
-    t_delta_in_mins = round(t_delta/datetime.timedelta(minutes=1)*60,2)
+    t_delta_in_mins = round(t_delta/datetime.timedelta(minutes=1),2)
     
     return(t_delta_in_mins)
 

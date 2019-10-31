@@ -6,23 +6,22 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 
-from config import WORD_OPTIONS
-
 from finder_function import read_xpath
 from finder_function import read_selector
+
+from config import WORD_OPTIONS
 
 import time
 import random
   
 def create_comment():
   comment = None
-  
+
   for index in range(len(WORD_OPTIONS)):
     word = WORD_OPTIONS[index][random.randint(0,len(WORD_OPTIONS[index])-1)]
     
     if comment is None:
       comment = word
-    
     else:
       comment = comment + word
 
@@ -58,9 +57,12 @@ def get_username_on_comment(comments):
     
   return(comment_usernames)
   
-def send_comment(browser, comm=None):
+def send_comment(browser, headless, comm=None):
   if not comm:
     comm = create_comment()
+
+  if headless:
+    print ("Sent Comment: {}".format(comm))
 
   comment_box = WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "textarea.Ypffh")))
   time.sleep(1)
@@ -92,4 +94,4 @@ def is_commenting_disabled(browser):
     if is_disabled is True:
       return True, 'Comment are disabled for this post'
 
-    return False, "Comments Enabled"
+    return False, "Comments Enabled. Unknown Error occured"

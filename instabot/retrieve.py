@@ -16,7 +16,7 @@ import web_nav
 
 def username_from_profile(browser):
     try:
-      wait = WebDriverWait(browser, 10)
+      wait = WebDriverWait(browser, 6)
       uname = wait.until(EC.visibility_of_element_located((By.CSS_SELECTOR, read_selector('elements','profile_username'))))
       uname = uname.text
       #uname = self.browser.find_element_by_class_name('BrX75').text
@@ -28,7 +28,7 @@ def username_from_profile(browser):
     
 def comments_on_post(browser):
     try:
-      comms = WebDriverWait(self.browser, 10).until(
+      comms = WebDriverWait(self.browser, 6).until(
       EC.presence_of_all_elements_located((By.XPATH, read_xpath('comments','comment_section')))
       )
         
@@ -137,10 +137,12 @@ def datetime_of_post(browser):
 def media_type(browser):
     type = 'pic'
     try:
-        type = WebDriverWait(browser, 10).until(
-          EC.visibility_of_element_located((BY.XPATH, read_xpath('post','video_identifier'))))
+        type = WebDriverWait(browser, 3).until(
+          EC.visibility_of_element_located((By.XPATH, read_xpath('post','video_identifier'))))
         type = type.get_attribute('type')
     except NoSuchElementException:
+        pass
+    except TimeoutException:
         pass
 
     return(type)
