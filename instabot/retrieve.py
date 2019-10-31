@@ -137,7 +137,9 @@ def datetime_of_post(browser):
 def media_type(browser):
     type = 'pic'
     try:
-        type = browser.find_element_by_xpath(read_xpath('post','video_identifier')).get_attribute('type')
+        type = WebDriverWait(browser, 10).until(
+          EC.visibility_of_element_located((BY.XPATH, read_xpath('post','video_identifier'))))
+        type = type.get_attribute('type')
     except NoSuchElementException:
         pass
 
