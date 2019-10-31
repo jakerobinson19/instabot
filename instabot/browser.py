@@ -7,8 +7,8 @@ def init_driver(file_path, headless):
   options.add_argument("incognito")
   
   if headless:
-  	options.add_argument("headless")
-  	
+    options.add_argument("headless")
+    
   driver = webdriver.Chrome(executable_path=file_path, 
                               chrome_options=options)
   driver.wait = WebDriverWait(driver, 10)

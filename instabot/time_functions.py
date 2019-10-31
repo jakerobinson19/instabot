@@ -31,3 +31,4 @@ def get_time_delta(start_time):
     t_delta_in_mins = round(t_delta/datetime.timedelta(minutes=1)*60,2)
     
     return(t_delta_in_mins)
+
