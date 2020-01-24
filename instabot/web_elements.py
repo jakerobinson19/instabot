@@ -22,8 +22,11 @@ xpath['comments'] = {
       
 xpath['like_button'] = {
     'like_button':"//span[@class='fr66n']",
-    'heart_outline': "//button/span[@class='glyphsSpriteHeart__outline__24__grey_9 u-__7']",
-    'heart_filled': "//button/span[@class='glyphsSpriteHeart__filled__24__red_5 u-__7']",
+    'heart_outline': "//span[@class='fr66n']",
+    'heart_filled': "//span[@class='FY9nT fr66n']"
+    # old x_paths
+    # 'heart_outline': "//button/span[@class='glyphsSpriteHeart__outline__24__grey_9 u-__7']",
+    # 'heart_filled': "//button/span[@class='glyphsSpriteHeart__filled__24__red_5 u-__7']",
 }
 
 xpath['status'] = {
