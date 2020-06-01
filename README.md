@@ -7,11 +7,8 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
-* [Roadmap](#roadmap)
-* [Contributing](#contributing)
 * [License](#license)
 * [Contact](#contact)
-* [Acknowledgements](#acknowledgements)
 
 
 
@@ -80,6 +77,18 @@ The bot will save the data of the users it engages and log the stats of your fol
 An easy way to view the contents of the sqlite file, if you are not familiar, is to upload it to the site below:
 http://sqliteviewer.flowsoft7.com/
 
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+
+<!-- CONTACT -->
+## Contact
+
+Jake Robinson (jakerobinson19@gmail.com)
+
+Project Link: [https://github.com/jakerobinson19/instabot](https://github.com/jakerobinson19/instabot)
 
 
 
