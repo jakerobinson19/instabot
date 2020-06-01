@@ -6,6 +6,7 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
+  * [Configuration](#configuration)
 * [Usage](#usage)
 * [License](#license)
 * [Contact](#contact)
@@ -18,6 +19,12 @@
 There are several instagram bots available on Github, this one is tailored to the goal of follower growth by applying Gary Vaynerchuks $1.80 strategy of commenting on approximately 90 unique accounts everyday. This bot takes the strategy one step further by also liking several of the past photos for accounts that are commented on. However, while a key part of the $1.80 strategy is using comments related to the pictures content, this automated bot can only allow limited customization of comments.
 
 The user will be able to specify the rules of engagement including how many accounts to view, how many pictures of each account to like or comment on, and if and what to comment on pictures.
+
+The general workflow for the bot is as follows:
+1. Go to a hashtag discover page (permitted hashtags are configurable)
+2. Comment on a number of accounts on the discover page
+3. Go to each account and like a set number of past pictures
+4. Repeat periodically until comment or likes limit reached (as per configuration)
 
 ### Built With
 This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
@@ -35,19 +42,21 @@ This section should list any major frameworks that you built your project using.
 - The Selenium package requires a webdriver program. This code was written 
 using [Chromedriver](https://chromedriver.storage.googleapis.com/index.html) v78.
 
+Refer to and install the requirements.txt for all dependencies
 ```sh
 pip install requirements.txt
 ```
 
 ### Installation
 #### Windows:
+```sh
 pip install selenium
-
+```
 #### MacOS:
 ```sh
 sudo easy_install selenium
 ```
-### Install drivers:
+#### Install drivers:
 
 Selenium requires a web driver to access the latest and greatest features. For the bot to work, you should download the webdriver for the browser that you plan to use and, once downloaded, add the driver to your $PATH by putting it in your */usr/local/bin* or */usr/bin* directories (depending on where Python is installed). 
 
@@ -62,13 +71,74 @@ Otherwise, here are links to the most popular drivers.
 
 Note: to see the version of the browser you have go to Settings>About Chrome or Menu>Help>About FireFox
 
+### Configuration
+config.py
+
+Set the basic parameters for access and engagement in the config.py file
+1. Set the username and password for the account you want the bot to run on.
+```sh
+USERNAME = <ig_username>
+PASSWORD = <ig_password>
+```
+
+2. Set the limit on the number of likes/comments you would like to perform during the session. The bot will stop running once either of these conditions are met. 
+```sh
+MAX_LIKES = 300
+MAX_COMMENTS = 55
+```
+ * Note: Although you are free to set the limit to almost infinity to let the bot run indefinitely, Instagram will likely catch on and block the account. For this reason a limit was set such that the bot will stop and you can choose to reintitiate later. 
+
+3. Set the number of profiles to interact with per hashtag you visit (PROFILES_PER_TAG), as well as how many pictures you want to like for each account (LIKES_PER_PROFILE)
+```sh
+#
+PROFILES_PER_TAG = 6
+LIKES_PER_PROFILE = 4
+```
+
+4. Set the parameters for how long the bot will delay before proceeding to the next hashtag (in minutes). Delays are integrated to stall the bot to prevent it from liking too many pictures in quick secession and get flagged by Instagram.
+```sh
+delay_time = 35 
+delay_variance = 15
+```
+Here delay_time is set to 35 minutes and the variance is 15 minutes. So, the bot will pause for between 20 to 50 minutes (35 +/- 15)
+
+5. Set various rules for if and how you would like to engage with certain accounts, such as would you like to comment on an account that is already following you (COMMENT_IF_FOLLOWING)
+```sh
+COMMENT_IF_FOLLOWING = False
+LIKE_IF_FOLLOWING = True
+INTERACT_IF_FOLLOW_BACK = False #False means thats if an account is following you but you are not following them, you will skip it
+COMMENT_ON_VIDEOS = True
+LIKE_VIDEOS = True
+COMMENT_ON_PICS = True
+LIKE_PICS = True 
+```
+
+6. If you wish, you can set a limit on the follower to following ratio an account has. 
+ * Example: if an account has 400 followers and is following 100 people, they have a ratio of 4. If configured to 3, you will skip accounts with ratios above 3
+```sh
+FOLLOWER_TO_FOLLOWING_RATIO_LIMIT = 3
+```
+
+7.
+
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
+Following the set up by updating and personalizing the configuration settings, you can run the bot from the command line.
+1. Navigate to the instabot directory
+2. Run the following command:
+```sh
+python3 runbot.py
+```
+The program will open a chrome or firefox browser and navigate to instagram.com. Once there, it will input the account credentials.
+3. The program will present a prompt for options. Select R and press ENTER to run the bot. It will log the activity in the terminal.
+```sh
+L - like pictures
+R - Run the Bot
+X - exit app
+What would you like to do:
+```
+4. Sit back and relax
 
 ### Bot Data
 ---------------------
