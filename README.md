@@ -72,9 +72,8 @@ Otherwise, here are links to the most popular drivers.
 Note: to see the version of the browser you have go to Settings>About Chrome or Menu>Help>About FireFox
 
 ### Configuration
-config.py
-
 Set the basic parameters for access and engagement in the config.py file
+
 1. Set the username and password for the account you want the bot to run on.
 ```sh
 USERNAME = <ig_username>
@@ -119,8 +118,31 @@ LIKE_PICS = True
 FOLLOWER_TO_FOLLOWING_RATIO_LIMIT = 3
 ```
 
-7.
+7. Enter the canned comments you would like to leave on pictures. You have an option for how you would like to generate these commments.
+1. Have set comments that the bot will select from
+ * To do this just have one array of comments and the bot will select one of them randomly from the list
+2. Have options for each part of comments that the bot will combine randomly to generate the comments
+ * To do this have multiple arrays will different parts that will be combined to create unique comments for each post (see example below)
+ ```sh
+ WORD_OPTIONS = [['Wow, ','So ','Absolutely ',"Holy fluff. You're ", 'Awwww ', "By our fluffy paws! You're ", 'Absocutely '],
+               ['so cute','adorable','lovely','so sweet','so so adorable','fabulous'],
+               ['! ','!! ','!!! '], 
+               ['❤️', '❤️🥰❤️', '❤️❤️❤️', '💕💕💕', '🔥', '🔥🔥' ,'😍', '😍😍', '😍🥰', '🥰💕']]
+               
+ ```
+ In the above case, the bot will take one item from the first, second, third, and fourth array at random to make a comment such as "Wow so cute! 💕💕💕" or "Awwww so so adorable!! 😍"
+ 
+8. The bot will search the captions of the pictures you are engaging to ensure the content is appropriate. You can set the bad words parameter such that if the bot finds these in the post, it will skip it. This is to prevent against, for instance, commenting "Holy fluff you're fabulous!" on a sad or grieving post.
+```sh
+BAD_WORDS = ['surgery','dead','rip','sad','death','tears','worst',
+			 'pain','danger','terrible','awful','memory','peace']
+```
 
+9. Finally, set the list of hashtags you would like to run through. The bot will pick one at random and will not visit the same hashtag twice in the same session. 
+```sh
+HASHTAG_LIST = ['dachshund', 'dachshunds', 'dachshundsonly', 'dachshund_love',
+                'doxiesofig', 'doxiefever']
+```
 <!-- USAGE EXAMPLES -->
 ## Usage
 
@@ -131,6 +153,7 @@ Following the set up by updating and personalizing the configuration settings, y
 python3 runbot.py
 ```
 The program will open a chrome or firefox browser and navigate to instagram.com. Once there, it will input the account credentials.
+
 3. The program will present a prompt for options. Select R and press ENTER to run the bot. It will log the activity in the terminal.
 ```sh
 L - like pictures
