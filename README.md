@@ -119,8 +119,10 @@ FOLLOWER_TO_FOLLOWING_RATIO_LIMIT = 3
 ```
 
 7. Enter the canned comments you would like to leave on pictures. You have an option for how you would like to generate these commments.
+	
 	A. Use set comments that the bot will select from:
  	* To do this just have one array of comments and the bot will select one of them randomly from the list
+	
 	B. Use options for each part of comments that the bot will combine randomly to generate the comments:
  	* To do this have multiple arrays will different parts that will be combined to create unique comments for each post (see example below)
  ```sh
