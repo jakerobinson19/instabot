@@ -27,7 +27,6 @@ The general workflow for the bot is as follows:
 4. Repeat periodically until comment or likes limit reached (as per configuration)
 
 ### Built With
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 * [Python 3.7](https://www.python.org/downloads/)
 * [Selenium](http://www.seleniumhq.org/download/)
 
