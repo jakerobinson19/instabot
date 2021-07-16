@@ -67,6 +67,6 @@ selector['login_elem'] = {
 
 selector['elements'] = {
       'comment_box': "textarea.Ypffh",
-      'profile_username':'h2.BrX75',
+      'profile_username':'div.e1e1d',
       'datetime_stamp':'_1o9PC Nzb55'
 }
