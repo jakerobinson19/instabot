@@ -151,7 +151,7 @@ Following the set up by updating and personalizing the configuration settings, y
 1. Navigate to the instabot directory
 2. Run the following command:
 ```sh
-python3 runbot.py
+python3 instabot.py
 ```
 The program will open a chrome or firefox browser and navigate to instagram.com. Once there, it will input the account credentials.
 
